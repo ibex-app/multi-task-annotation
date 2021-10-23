@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+        body {
+            background: #2b2b2b;
+            color: #e7e7e7;
+            font-family: "Roboto", sans-serif;
+        }
+
+        span.word {
+            display: inline-flex;
+            flex-direction: column;
+            /* padding: 2px 4px; */
+            position: relative;
+            /* margin: 10px 0; */
+            cursor: pointer;
+        }
+
+        span.word span {
+            width: 100%;
+            display: block;
+            /* min-height: 10px; */
+            height: 0px;
+            margin-bottom: 20px;
+            /* margin-top: 10px; */
+            border: 2.5px solid transparent;
+            /* text-overflow: ellipsis;
+            overflow: hidden;
+            width: 160px;
+            height: 1.2em;
+            white-space: nowrap; */
+        }
+
+        span.word span:first-child {
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .sent {
+            margin: 50px;
+        }
+
+        span.word i {
+            position: absolute;
+            font-size: 11px;
+            white-space: nowrap;
+            top: 5px;
+            font-weight: bold;
+        }
+
+        span.word span.last {
+            width: calc(100% - 18px);
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        span.word span.first {
+            width: calc(100% - 17px);
+            display: inline-block;
+            align-self: end;
+            position: relative;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        span.word span.first::before {
+            position: absolute;
+            content: "";
+            border-radius: 100%;
+            width: 8px;
+            height: 8px;
+            background: inherit;
+            top: -4px;
+            left: -13px;
+        }
+
+        ::-moz-selection {
+            /* Code for Firefox */
+            color: inherit;
+            background: inherit;
+        }
+
+        ::selection {
+            color: inherit;
+            background: inherit;
+        }
+
+
+        .plans .plan input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .plans .plan {
+            cursor: pointer;
+            width: 48.5%;
+        }
+
+        .plans .plan .plan-content {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 30px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 2px solid #e1e2e7;
+            border-radius: 10px;
+            -webkit-transition: -webkit-box-shadow 0.4s;
+            transition: -webkit-box-shadow 0.4s;
+            -o-transition: box-shadow 0.4s;
+            transition: box-shadow 0.4s;
+            transition: box-shadow 0.4s, -webkit-box-shadow 0.4s;
+            position: relative;
+        }
+
+        .plans .plan .plan-content img {
+            margin-right: 30px;
+            height: 72px;
+        }
+
+        .plans .plan .plan-details span {
+            margin-bottom: 10px;
+            display: block;
+            font-size: 20px;
+            line-height: 24px;
+            color: #252f42;
+        }
+
+        .container .title {
+            font-size: 16px;
+            font-weight: 500;
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+            color: #252f42;
+            margin-bottom: 20px;
+        }
+
+        .plans .plan .plan-details p {
+            color: #646a79;
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        .plans .plan .plan-content:hover {
+            -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
+            box-shadow: 0px 3px 5px 0px #e8e8e8;
+        }
+
+        .plans .plan input[type="radio"]:checked+.plan-content:after {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 8px;
+            background: #216fe0;
+            right: 20px;
+            top: 20px;
+            border-radius: 100%;
+            border: 3px solid #fff;
+            -webkit-box-shadow: 0px 0px 0px 2px #0066ff;
+            box-shadow: 0px 0px 0px 2px #0066ff;
+        }
+
+        .plans .plan input[type="radio"]:checked+.plan-content {
+            border: 2px solid #216ee0;
+            background: #eaf1fe;
+            -webkit-transition: ease-in 0.3s;
+            -o-transition: ease-in 0.3s;
+            transition: ease-in 0.3s;
+        }
+
+        * {
+            touch-action: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sent">
+        When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags
+        are Person, Location, Object, Noun etc. You can use any tags in any language.
+    </div>
+    <div>
+        <div data-step=1>
+            Conflict category<br>
+            <input type="radio" />DPI<br>
+            <input type="radio" />Border<br>
+            <input type="radio" />Refugies<br>
+            <input type="radio" />Prisoners<br>
+        </div>
+        <div data-step=1>
+            Contains :<br>
+            <input type="checkbox" /> Conflict related topic<br>
+            <input type="checkbox" /> Extremizm<br>
+            <input type="checkbox" /> Gender based hate speech<br>
+            <input type="checkbox" /> Terorism<br>
+            <input type="checkbox" /> Hate Speech<br>
+        </div>
+        <div data-step=1>
+            Is :<br>
+            <input type="checkbox" /> Anti Gov<br>
+            <input type="checkbox" /> Pro Gov<br>
+            <input type="checkbox" /> Anti Opo<br>
+            <input type="checkbox" /> Pro Opo<br>
+            <input type="checkbox" /> Anti West<br>
+            <input type="checkbox" /> Pro West<br>
+            <input type="checkbox" /> Anti Russ<br>
+            <input type="checkbox" /> Pro Russ<br>
+
+        </div>
+        <button onclick="save()">save</button>
+    </div>
+
+</body>
+<script>
+
+    var colIndex = 1
+    var cols = ["white", "blue", "black", "yellow", "gray", "green", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick"]
+
+    var getBorderString = borderInfo => {
+        color = cols[borderInfo.colorIndex]
+        px = borderInfo.layer * 3
+
+        let borders = {
+            all: '' + color + ' 0 ' + px + 'px 0 0, ' + color + ' 0 -' + px + 'px 0 0',
+            start: '' + color + ' -' + px + 'px ' + px + 'px 0 0, ' + color + ' -' + px + 'px -' + px + 'px 0 0',
+            end: '' + color + '  ' + px + 'px ' + px + 'px 0 0, ' + color + '  ' + px + 'px -' + px + 'px 0 0',
+        }
+        borderCSS = borders.all + (borderInfo.first ? ' , ' + borders.start : '') + (borderInfo.last ? ' , ' + borders.end : '')
+        return borderCSS
+    }
+
+    var drowBorders = () => {
+
+        return
+
+        words.forEach(wordInfo => {
+            wordInfo.dom.style.paddingLeft = ''
+            wordInfo.dom.style.paddingRight = ''
+        })
+        words.forEach((wordInfo, index) => {
+            if (wordInfo.borders.length == 0) return
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            let topBorder = wordInfo.borders[wordInfo.borders.length - 1]
+            if (topBorder.first && words[index - 1]) {
+                words[index - 1].dom.style.paddingRight = (3 + topBorder.layer * 3.3) + 'px'
+            }
+            if (topBorder.last && words[index + 1]) {
+                words[index + 1].dom.style.paddingLeft = (3 + topBorder.layer * 3.3) + 'px'
+            }
+        })
+        words.forEach(wordInfo => {
+            if (wordInfo.borders.length == 0) return
+            wordInfo.dom.style.zIndex = 100 + wordInfo.borders.length
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            let lastLayer = wordInfo.borders[wordInfo.borders.length - 1].layer
+            let existingLayers = wordInfo.borders.map(b => b.layer)
+            let left = 4
+            for (let i = 1; i <= lastLayer; i++) {
+                if (existingLayers.indexOf(i) == -1) {
+                    left += 3
+                    wordInfo.borders.push({ colorIndex: 0, first: true, last: true, layer: i })
+                }
+            }
+            left = left > 8 ? 8 : left
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            wordInfo.dom.style.boxShadow = wordInfo.borders.map(getBorderString).join(' , ')
+            wordInfo.dom.style.paddingLeft = left + 'px'
+            wordInfo.dom.style.paddingRight = left + 'px'
+        })
+    }
+
+    var highlight = () => words.forEach(wordInfo => wordInfo.dom.style.background = wordInfo.selecting ? 'rgba(255,255,255,.2)' : '')
+
+    var onmousedown_ = (e) => {
+        if (!cntrlIsPressed) words.forEach(wordInfo => wordInfo.selecting = false)
+        startSelection = true
+        let targetIndex = parseInt(e.currentTarget.getAttribute('index'))
+        let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
+        theWord.selecting = true
+        highlight()
+        e.preventDefault()
+    }
+    var ontouchmove_ = (e) => {
+        var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+        var touch = evt.touches[0] || evt.changedTouches[0];
+        el = document.elementFromPoint(touch.pageX, touch.pageY)
+
+        currentTarget = el.getAttribute("index") ? el : el.parentElement
+        onmouseenter_(e, currentTarget)
+        // console.log(currentTarget)
+    }
+
+    var onmouseenter_ = (e, currentTarget) => {
+        if (!startSelection) return
+        currentTarget = currentTarget || e.currentTarget
+
+        let targetIndex = parseInt(currentTarget.getAttribute('index'))
+        let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
+        let nextWord = words.find(wordInfo => wordInfo.index == targetIndex + 1)
+        let prevtWord = words.find(wordInfo => wordInfo.index == targetIndex - 1)
+        // console.log(prevtWord.index, theWord.index, nextWord.index)
+
+        if ((nextWord && nextWord.selecting) || (prevtWord && prevtWord.selecting)) theWord.selecting = true
+        highlight()
+        e.preventDefault()
+    }
+
+    var onmouseup_ = (e) => {
+        startSelection = false
+        e.preventDefault()
+    }
+
+    cont = document.querySelector('div')
+    document.onmouseup = onmouseup_
+    document.ontouchcancel = onmouseup_
+    document.ontouchend = onmouseup_
+
+    text = cont.innerText
+    cont.innerHTML = ''
+    words = text.split(' ').map(t => ({ text: t }))
+    startSelection = false
+
+    var cntrlIsPressed = false;
+
+    document.body.addEventListener('keydown', (e) => {
+        if (17 == e.which) cntrlIsPressed = true
+    });
+
+    document.body.addEventListener('keyup', (e) => {
+        cntrlIsPressed = false;
+    });
+
+
+
+    words.forEach((wordInfo, wordIndex) => {
+        span = document.createElement('span')
+        span.setAttribute('index', wordIndex)
+        span.setAttribute('draggable', false)
+
+        span.className = 'word'
+        span.innerHTML = '<span>' + wordInfo.text + '&nbsp;</span>'
+        cont.appendChild(span)
+
+        // span.onmousedown = onmousedown_
+        // // span.onpointerdown = onmousedown_
+        // span.ontouchstart = onmousedown_
+        // // span.onmouseenter = onmouseenter
+
+        // span.onmouseenter = onmouseenter_
+        // span.ontouchenter = onmouseenter_
+
+        // span.addEventListener("pointerdown", onmousedown_)
+        span.addEventListener("pointerenter", onmouseenter_)
+
+
+        span.addEventListener("touchstart", onmousedown_)
+        span.addEventListener("touchmove", ontouchmove_)
+        // span.addEventListener("touchenter", console.log)
+        // document.elementFromPoint(touch.x, touch.y);
+
+        // on touchmove event.
+        // div.addEventListener("pointerleave",(e)=>{
+        //     console.log("leave")
+        // })
+
+        wordInfo.dom = span
+        wordInfo.index = wordIndex
+        wordInfo.borders = []
+        wordInfo.selecting = false
+
+    })
+
+
+    drowBorders()
+
+    var orderLayers = () => {
+
+    }
+
+    var tags = []
+    // var tags = [
+    //     {
+    //         "id": 1,
+    //         "colorIndex": 1,
+    //         "words": [
+    //             32,
+    //             33,
+    //             34
+    //         ],
+    //         "drown": true
+    //     },
+    //     {
+    //         "id": 2,
+    //         "colorIndex": 2,
+    //         "words": [
+    //             33,
+    //             34,
+    //             35
+    //         ],
+    //         "drown": false
+    //     },
+    //     {
+    //         "id": 3,
+    //         "colorIndex": 3,
+    //         "words": [
+    //             33, 34
+    //         ],
+    //         "drown": true
+    //     }
+    // ]
+    var tagId = tags.length
+
+    var orderTags = () => {
+
+
+
+        let allTaggedWords = [].concat.apply([], tags.map(tag => tag.words))
+        countOfWords = allTaggedWords.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+
+        max_layers = Array.from(countOfWords, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value)[0].value
+        words.forEach(wordInfo => {
+            wordInfo.occupiedLayers = []
+            wordInfo.dom.innerHTML = '<span>' + wordInfo.text + '&nbsp;</span>'
+            for (let layer_index = 0; layer_index < max_layers; layer_index++) {
+                let span = document.createElement('span')
+                wordInfo.dom.appendChild(span)
+            }
+        })
+
+        tags.forEach(tag => {
+            let tagWords = tag.words.map(wordIndex => words.find(word => word.index == wordIndex))
+            let avaliableLayer
+            let isAvaliable
+            for (avaliableLayer = 1; avaliableLayer <= max_layers; avaliableLayer++) {
+                isAvaliable = tagWords.reduce((isAvaliable, wordInfo) => {
+                    if (!isAvaliable) return isAvaliable
+                    return wordInfo.occupiedLayers.indexOf(avaliableLayer) === -1
+                }, !0)
+                if (isAvaliable) break
+            }
+
+            tagWords.forEach((wordInfo, wordInd) => {
+                if (!isAvaliable) {
+                    let span = document.createElement('span')
+                    wordInfo.dom.appendChild(span)
+                    avaliableLayer++
+                }
+                // console.log(wordInfo, avaliableLayer)
+
+                span = wordInfo.dom.querySelector('span:nth-child(' + (avaliableLayer + 1) + ')')
+                span.style.border = '2.5px solid ' + cols[tag.colorIndex]
+                span.style.background = cols[tag.colorIndex]
+                if (wordInd == 0) {
+                    span.classList.add('first')
+                    span.innerHTML = '<i style="color:' + cols[tag.colorIndex] + '">Entity # 12</i>'
+                }
+                if (wordInd == tagWords.length - 1) span.classList.add('last')
+                wordInfo.occupiedLayers.push(avaliableLayer)
+            })
+        })
+
+        return
+        tags.forEach(tag => {
+            if (tag.drown) return
+            let otherTags = tags.filter(tag_ => tag_.id != tag.id)
+            let intersectingTags = otherTags.filter(tag_ => tag_.words.filter(value => tag.words.includes(value)).length > 0)
+            let fullMatchsTags = otherTags.filter(tag_ => tag_.words.sort().toString() == tag.words.sort().toString())
+            let outerTags = intersectingTags.filter(t => t.words[0] <= tag.words[0] && t.words[t.words.length - 1] >= tag.words[tag.words.length - 1])
+            let innerTags = intersectingTags.filter(t => t.words[0] >= tag.words[0] && t.words[t.words.length - 1] <= tag.words[tag.words.length - 1])
+
+            let tagWords = tag.words.map(wordIndex => words.find(word => word.index == wordIndex))
+
+            console.log("col:", tag.colorIndex, "length:", tagWords.length, 'inters:', intersectingTags.length, "inner:", innerTags.length, "outer:", outerTags.length)
+
+            //nothing on touch with this tag
+            if (tag.words.map(word => countOfWords.get(word)).every(v => v === 1)) {
+                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                    colorIndex: tag.colorIndex,
+                    first: index == 0,
+                    last: index == tag.words.length - 1,
+                    layer: 1
+                }))
+                tag.drown = true
+                return
+            }
+
+            // fully matchs another tag
+
+            if (intersectingTags.length == fullMatchsTags.length) {
+                console.log(1111)
+                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                    colorIndex: tag.colorIndex,
+                    first: index == 0,
+                    last: index == tag.words.length - 1,
+                    layer: 1
+                }))
+
+                let layer = 2
+                fullMatchsTags.forEach(fullMatchedTag => {
+
+                    let tagWords = fullMatchedTag.words.map(wordIndex => words.find(word => word.index == wordIndex))
+
+                    tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                        colorIndex: fullMatchedTag.colorIndex,
+                        first: index == 0,
+                        last: index == fullMatchedTag.words.length - 1,
+                        layer: layer
+                    }))
+
+
+                    fullMatchedTag.drown = true
+                    layer++
+                })
+                tag.drown = true
+                return
+            }
+
+            // has nothing nested
+            if (intersectingTags.length == outerTags.length) {
+                console.log(2222)
+                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                    colorIndex: tag.colorIndex,
+                    first: index == 0,
+                    last: index == tag.words.length - 1,
+                    layer: 1
+                }))
+                tag.drown = true
+                return
+            }
+
+
+            //is fully nesting
+            if (intersectingTags.length == innerTags.length) {
+                console.log(333)
+                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                    colorIndex: tag.colorIndex,
+                    first: index == 0,
+                    last: index == tag.words.length - 1,
+                    layer: innerTags.length + 1
+                }))
+                tag.drown = true
+                return
+            }
+
+            if (intersectingTags.length == innerTags.length + outerTags.length) {
+                console.log(444)
+                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
+                    colorIndex: tag.colorIndex,
+                    first: index == 0,
+                    last: index == tag.words.length - 1,
+                    layer: innerTags.length + 1
+                }))
+                tag.drown = true
+                return
+            }
+        })
+    }
+
+    var save = () => {
+        selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
+        if (selectedIndexes.length !== 0) tags.push({ id: tagId, colorIndex: colIndex, words: selectedIndexes })
+
+        tags.forEach(tag => tag.drown = false)
+        words.forEach(wordInfo => {
+            wordInfo.selecting = false
+            wordInfo.borders = []
+        })
+        highlight()
+
+        orderTags()
+
+
+        drowBorders()
+        colIndex++
+        tagId++
+    }
+
+    document.onkeypress = (e => {
+        if (e.keyCode == 13) {
+            save()
+        }
+
+    })
+
+// selectedWords.forEach((wordInfo, index) => wordInfo.borders.push({
+//     colorIndex: colIndex, 
+//     first: index == 0,
+//     last: index == selectedWords.length - 1,
+// }))
+
+// if(wordIndex == 4){
+//     wordInfo.borders = [{ colorIndex: 0, first: true, last: true, layer: 1},  { colorIndex: 2, first: true, layer: 2}]
+// }
+// if(wordIndex == 5){
+//     wordInfo.borders = [{ colorIndex: 1, first: true, last: true, layer: 1 }, { colorIndex: 2, layer: 2} ]
+// }
+// if(wordIndex == 6){
+//     wordInfo.borders = [{ colorIndex: 0, first: true, last: true, layer: 1},  { colorIndex: 2, last: true, layer: 2}]
+// }
+// if(wordIndex == 10){
+//     wordInfo.borders = [{ colorIndex: 4, first: true, last: true, layer: 1}]
+// }
+
+// <1>W</1> W <1>W</1> W
+
+// <2>W W <1>W</1> W</2>
+
+// <3><2>W <1>W</1> W</2></3>
+
+
+
+//  a b c d
+
+
+//  abc
+
+//  bc
+
+
+</script>
+
+</html>
