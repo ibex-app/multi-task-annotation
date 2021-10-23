@@ -178,6 +178,16 @@
         * {
             touch-action: none;
         }
+
+        span.word span.hide {
+            height: 0;
+            margin: 0;
+            border: none;
+        }
+
+        span.word.selected span:first-child {
+            background: rgba(255, 255, 255, 0.2) none repeat scroll 0% 0%;
+        }
     </style>
 </head>
 
@@ -224,18 +234,6 @@
     var colIndex = 1
     var cols = ["white", "blue", "black", "yellow", "gray", "green", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick"]
 
-    var getBorderString = borderInfo => {
-        color = cols[borderInfo.colorIndex]
-        px = borderInfo.layer * 3
-
-        let borders = {
-            all: '' + color + ' 0 ' + px + 'px 0 0, ' + color + ' 0 -' + px + 'px 0 0',
-            start: '' + color + ' -' + px + 'px ' + px + 'px 0 0, ' + color + ' -' + px + 'px -' + px + 'px 0 0',
-            end: '' + color + '  ' + px + 'px ' + px + 'px 0 0, ' + color + '  ' + px + 'px -' + px + 'px 0 0',
-        }
-        borderCSS = borders.all + (borderInfo.first ? ' , ' + borders.start : '') + (borderInfo.last ? ' , ' + borders.end : '')
-        return borderCSS
-    }
 
     var drowBorders = () => {
 
@@ -277,7 +275,16 @@
         })
     }
 
-    var highlight = () => words.forEach(wordInfo => wordInfo.dom.style.background = wordInfo.selecting ? 'rgba(255,255,255,.2)' : '')
+    var highlight = () => {
+        words.forEach(wordInfo => {
+            if (wordInfo.selecting) {
+
+                wordInfo.dom.classList.add('selected')
+            } else {
+                wordInfo.dom.classList.remove('selected')
+            }
+        })
+    }
 
     var onmousedown_ = (e) => {
         if (!cntrlIsPressed) words.forEach(wordInfo => wordInfo.selecting = false)
@@ -318,7 +325,7 @@
         e.preventDefault()
     }
 
-    cont = document.querySelector('div')
+    cont = document.querySelector('div.sent')
     document.onmouseup = onmouseup_
     document.ontouchcancel = onmouseup_
     document.ontouchend = onmouseup_
@@ -349,10 +356,8 @@
         span.innerHTML = '<span>' + wordInfo.text + '&nbsp;</span>'
         cont.appendChild(span)
 
-        // span.onmousedown = onmousedown_
-        // // span.onpointerdown = onmousedown_
-        // span.ontouchstart = onmousedown_
-        // // span.onmouseenter = onmouseenter
+        span.onmousedown = onmousedown_
+        span.onmouseenter = onmouseenter
 
         // span.onmouseenter = onmouseenter_
         // span.ontouchenter = onmouseenter_
@@ -386,42 +391,11 @@
     }
 
     var tags = []
-    // var tags = [
-    //     {
-    //         "id": 1,
-    //         "colorIndex": 1,
-    //         "words": [
-    //             32,
-    //             33,
-    //             34
-    //         ],
-    //         "drown": true
-    //     },
-    //     {
-    //         "id": 2,
-    //         "colorIndex": 2,
-    //         "words": [
-    //             33,
-    //             34,
-    //             35
-    //         ],
-    //         "drown": false
-    //     },
-    //     {
-    //         "id": 3,
-    //         "colorIndex": 3,
-    //         "words": [
-    //             33, 34
-    //         ],
-    //         "drown": true
-    //     }
-    // ]
+
     var tagId = tags.length
+    var max_layers
 
     var orderTags = () => {
-
-
-
         let allTaggedWords = [].concat.apply([], tags.map(tag => tag.words))
         countOfWords = allTaggedWords.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
 
@@ -468,100 +442,35 @@
         })
 
         return
-        tags.forEach(tag => {
-            if (tag.drown) return
-            let otherTags = tags.filter(tag_ => tag_.id != tag.id)
-            let intersectingTags = otherTags.filter(tag_ => tag_.words.filter(value => tag.words.includes(value)).length > 0)
-            let fullMatchsTags = otherTags.filter(tag_ => tag_.words.sort().toString() == tag.words.sort().toString())
-            let outerTags = intersectingTags.filter(t => t.words[0] <= tag.words[0] && t.words[t.words.length - 1] >= tag.words[tag.words.length - 1])
-            let innerTags = intersectingTags.filter(t => t.words[0] >= tag.words[0] && t.words[t.words.length - 1] <= tag.words[tag.words.length - 1])
-
-            let tagWords = tag.words.map(wordIndex => words.find(word => word.index == wordIndex))
-
-            console.log("col:", tag.colorIndex, "length:", tagWords.length, 'inters:', intersectingTags.length, "inner:", innerTags.length, "outer:", outerTags.length)
-
-            //nothing on touch with this tag
-            if (tag.words.map(word => countOfWords.get(word)).every(v => v === 1)) {
-                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                    colorIndex: tag.colorIndex,
-                    first: index == 0,
-                    last: index == tag.words.length - 1,
-                    layer: 1
-                }))
-                tag.drown = true
-                return
-            }
-
-            // fully matchs another tag
-
-            if (intersectingTags.length == fullMatchsTags.length) {
-                console.log(1111)
-                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                    colorIndex: tag.colorIndex,
-                    first: index == 0,
-                    last: index == tag.words.length - 1,
-                    layer: 1
-                }))
-
-                let layer = 2
-                fullMatchsTags.forEach(fullMatchedTag => {
-
-                    let tagWords = fullMatchedTag.words.map(wordIndex => words.find(word => word.index == wordIndex))
-
-                    tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                        colorIndex: fullMatchedTag.colorIndex,
-                        first: index == 0,
-                        last: index == fullMatchedTag.words.length - 1,
-                        layer: layer
-                    }))
-
-
-                    fullMatchedTag.drown = true
-                    layer++
-                })
-                tag.drown = true
-                return
-            }
-
-            // has nothing nested
-            if (intersectingTags.length == outerTags.length) {
-                console.log(2222)
-                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                    colorIndex: tag.colorIndex,
-                    first: index == 0,
-                    last: index == tag.words.length - 1,
-                    layer: 1
-                }))
-                tag.drown = true
-                return
-            }
-
-
-            //is fully nesting
-            if (intersectingTags.length == innerTags.length) {
-                console.log(333)
-                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                    colorIndex: tag.colorIndex,
-                    first: index == 0,
-                    last: index == tag.words.length - 1,
-                    layer: innerTags.length + 1
-                }))
-                tag.drown = true
-                return
-            }
-
-            if (intersectingTags.length == innerTags.length + outerTags.length) {
-                console.log(444)
-                tagWords.forEach((wordInfo, index) => wordInfo.borders.push({
-                    colorIndex: tag.colorIndex,
-                    first: index == 0,
-                    last: index == tag.words.length - 1,
-                    layer: innerTags.length + 1
-                }))
-                tag.drown = true
-                return
+    }
+    var lines
+    var hideemptylines = () => {
+        cont = document.querySelector('div.sent')
+        widdth = cont.offsetWidth
+        lines = [[]]
+        offset = 0
+        words.forEach(wordInfo => {
+            if (offset + wordInfo.dom.offsetWidth <= cont.offsetWidth) {
+                lines[lines.length - 1].push(wordInfo)
+                offset += wordInfo.dom.offsetWidth
+            } else {
+                lines.push([wordInfo])
+                offset = wordInfo.dom.offsetWidth
             }
         })
+        lines.forEach(line => {
+            for (let layer_index = max_layers; layer_index > 0; layer_index--) {
+                let spans_in_a_line = line.map(wordInfo => wordInfo.dom.querySelectorAll('span')[layer_index])
+                let no_of_underlines = spans_in_a_line.map(a => !a.className && !a.getAttribute('style')).every(Boolean)
+                if (no_of_underlines) {
+                    spans_in_a_line.forEach(sp => sp.className = 'hide')
+                } else {
+                    break
+                }
+            }
+
+        })
+
     }
 
     var save = () => {
@@ -574,11 +483,9 @@
             wordInfo.borders = []
         })
         highlight()
-
         orderTags()
-
-
         drowBorders()
+        hideemptylines()
         colIndex++
         tagId++
     }
@@ -589,40 +496,6 @@
         }
 
     })
-
-// selectedWords.forEach((wordInfo, index) => wordInfo.borders.push({
-//     colorIndex: colIndex, 
-//     first: index == 0,
-//     last: index == selectedWords.length - 1,
-// }))
-
-// if(wordIndex == 4){
-//     wordInfo.borders = [{ colorIndex: 0, first: true, last: true, layer: 1},  { colorIndex: 2, first: true, layer: 2}]
-// }
-// if(wordIndex == 5){
-//     wordInfo.borders = [{ colorIndex: 1, first: true, last: true, layer: 1 }, { colorIndex: 2, layer: 2} ]
-// }
-// if(wordIndex == 6){
-//     wordInfo.borders = [{ colorIndex: 0, first: true, last: true, layer: 1},  { colorIndex: 2, last: true, layer: 2}]
-// }
-// if(wordIndex == 10){
-//     wordInfo.borders = [{ colorIndex: 4, first: true, last: true, layer: 1}]
-// }
-
-// <1>W</1> W <1>W</1> W
-
-// <2>W W <1>W</1> W</2>
-
-// <3><2>W <1>W</1> W</2></3>
-
-
-
-//  a b c d
-
-
-//  abc
-
-//  bc
 
 
 </script>
