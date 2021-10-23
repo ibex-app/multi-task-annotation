@@ -41,6 +41,7 @@
         span.word span:first-child {
             height: auto;
             margin-bottom: 5px;
+            border: none;
         }
 
         .sent {
@@ -187,6 +188,12 @@
 
         span.word.selected span:first-child {
             background: rgba(255, 255, 255, 0.2) none repeat scroll 0% 0%;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            height: 30px;
         }
     </style>
 </head>
@@ -198,6 +205,7 @@
         are Person, Location, Object, Noun etc. You can use any tags in any language.
     </div>
     <div>
+        <button onclick="save()">save</button>
         <div data-step=1>
             Conflict category<br>
             <input type="radio" />DPI<br>
@@ -225,7 +233,7 @@
             <input type="checkbox" /> Pro Russ<br>
 
         </div>
-        <button onclick="save()">save</button>
+
     </div>
 
 </body>
