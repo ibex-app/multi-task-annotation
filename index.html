@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+        body {
+            background: #eeeae7;
+            color:  #232324;
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        *{
+            box-sizing: border-box;
+        }
+        span.word {
+            display: inline-flex;
+            flex-direction: column;
+            /* padding: 2px 4px; */
+            position: relative;
+            /* margin: 10px 0; */
+            cursor: pointer;
+            font-size: 1.3em;
+        }
+
+        span.word span {
+            width: 100%;
+            display: block;
+            /* min-height: 10px; */
+            height: 0px;
+            margin-bottom: 9px;
+            /* margin-top: 10px; */
+            border: 2.5px solid transparent;
+            
+            /* text-overflow: ellipsis;
+            overflow: hidden;
+            width: 160px;
+            height: 1.2em;
+            white-space: nowrap; */
+            /* padding-left: 2.5px;
+            padding-right: 2.5px; */
+            /* margin-left: 2.5px; */
+            
+        }
+
+        span.word span:first-child {
+            height: auto;
+            margin-bottom: 5px;
+            border: none;
+            /* padding-left: 4px; */
+            padding-bottom: 1px;
+            padding-left: 3.5px;
+            padding-right: 3.5px;
+        }
+
+        .sent {
+            padding: 5vh 4vw;
+            width: 100%;
+            height: 80vh;
+            position: fixed;
+            overflow: scroll;
+        }
+
+        span.word i {
+            position: absolute;
+            font-size: 11px;
+            white-space: nowrap;
+            top: -11px;
+            font-weight: bold;
+            color: #545454;
+            text-shadow: 0px 1px 3px white, 0px 2px 2px white;
+        }
+
+        span.word span.last {
+            width: 100%;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        span.word span.first {
+            width: 100%;
+            display: inline-block;
+            align-self: end;
+            position: relative;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            z-index: 5;
+        }
+
+        /* span.word span.first::before {
+            position: absolute;
+            content: "";
+            border-radius: 100%;
+            width: 8px;
+            height: 8px;
+            background: inherit;
+            top: -4px;
+            left: -13px;
+        } */
+
+        ::-moz-selection {
+            /* Code for Firefox */
+            color: inherit;
+            background: inherit;
+        }
+
+        ::selection {
+            color: inherit;
+            background: inherit;
+        }
+
+
+        .plans .plan input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .plans .plan {
+            cursor: pointer;
+            width: 48.5%;
+        }
+
+        .plans .plan .plan-content {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 30px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 2px solid #e1e2e7;
+            border-radius: 10px;
+            -webkit-transition: -webkit-box-shadow 0.4s;
+            transition: -webkit-box-shadow 0.4s;
+            -o-transition: box-shadow 0.4s;
+            transition: box-shadow 0.4s;
+            transition: box-shadow 0.4s, -webkit-box-shadow 0.4s;
+            position: relative;
+        }
+
+        .plans .plan .plan-content img {
+            margin-right: 30px;
+            height: 72px;
+        }
+
+        .plans .plan .plan-details span {
+            margin-bottom: 10px;
+            display: block;
+            font-size: 20px;
+            line-height: 24px;
+            color: #252f42;
+        }
+
+        .container .title {
+            font-size: 16px;
+            font-weight: 500;
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+            color: #252f42;
+            margin-bottom: 20px;
+        }
+
+        .plans .plan .plan-details p {
+            color: #646a79;
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        .plans .plan .plan-content:hover {
+            -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
+            box-shadow: 0px 3px 5px 0px #e8e8e8;
+        }
+
+        .plans .plan input[type="radio"]:checked+.plan-content:after {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 8px;
+            background: #216fe0;
+            right: 20px;
+            top: 20px;
+            border-radius: 100%;
+            border: 3px solid #fff;
+            -webkit-box-shadow: 0px 0px 0px 2px #0066ff;
+            box-shadow: 0px 0px 0px 2px #0066ff;
+        }
+
+        .plans .plan input[type="radio"]:checked+.plan-content {
+            border: 2px solid #216ee0;
+            background: #eaf1fe;
+            -webkit-transition: ease-in 0.3s;
+            -o-transition: ease-in 0.3s;
+            transition: ease-in 0.3s;
+        }
+
+        * {
+            touch-action: none;
+        }
+
+        span.word span.hide {
+            height: 0;
+            margin: 0;
+            border: none;
+        }
+
+        span.word.selected span:nth-child(1) {
+            background: rgba(0,0,0, 0.2) none repeat scroll 0% 0%;
+            border: none;
+        }
+
+        span.word.selected:first-child > span:first-child {
+            overflow: hidden;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+
+        span.selected.word:last-child > span:first-child {
+            overflow: hidden;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            height: 30px;
+        }
+        .bottom-line{
+            position: fixed;
+            bottom:0;
+            left: 0;
+            height: 20vh;
+            width: 100%;
+            box-shadow: 0 0 2px 3px #51505040;
+        }
+
+        .bottom-line > div > span.prev{
+            background: #8d639a;
+            margin-right: 12px;
+        }
+        .bottom-line > div > span.next{
+            background: #8d639a;
+            margin-left: 12px;
+        }
+        .bottom-line > div{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20vh;
+            display: none;
+            padding: 3px 6px;
+        }
+        .bottom-line > div.show{
+            display: block;
+        }
+        
+        .bottom-line > div > span{
+            text-align: center;
+            padding: 5px 9px;
+            cursor: pointer;
+            margin: 3px 3px;
+            display: inline-block;
+            background: #bf501f;
+            color: whitesmoke;
+            border-radius: 5px;
+        }
+            
+
+    </style>
+</head>
+
+<body>
+
+    <div class="sent">
+        
+    </div>
+    
+    <div class="bottom-line">
+        
+
+    </div>
+
+</body>
+<script>
+
+    var colIndex = 1
+    var cols = ["black", "#bf501f", "#f59c34", "#89a7c6", "#7bc597", "#8d639a", "#8d639a", "#e4a774", "#828687", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick"]
+
+
+    var drowBorders = () => {
+
+        return
+
+        words.forEach(wordInfo => {
+            wordInfo.dom.style.paddingLeft = ''
+            wordInfo.dom.style.paddingRight = ''
+        })
+        words.forEach((wordInfo, index) => {
+            if (wordInfo.borders.length == 0) return
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            let topBorder = wordInfo.borders[wordInfo.borders.length - 1]
+            if (topBorder.first && words[index - 1]) {
+                words[index - 1].dom.style.paddingRight = (3 + topBorder.layer * 3.3) + 'px'
+            }
+            if (topBorder.last && words[index + 1]) {
+                words[index + 1].dom.style.paddingLeft = (3 + topBorder.layer * 3.3) + 'px'
+            }
+        })
+        words.forEach(wordInfo => {
+            if (wordInfo.borders.length == 0) return
+            wordInfo.dom.style.zIndex = 100 + wordInfo.borders.length
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            let lastLayer = wordInfo.borders[wordInfo.borders.length - 1].layer
+            let existingLayers = wordInfo.borders.map(b => b.layer)
+            let left = 4
+            for (let i = 1; i <= lastLayer; i++) {
+                if (existingLayers.indexOf(i) == -1) {
+                    left += 3
+                    wordInfo.borders.push({ colorIndex: 0, first: true, last: true, layer: i })
+                }
+            }
+            left = left > 8 ? 8 : left
+            wordInfo.borders = wordInfo.borders.sort((a, b) => a.layer > b.layer)
+            wordInfo.dom.style.boxShadow = wordInfo.borders.map(getBorderString).join(' , ')
+            wordInfo.dom.style.paddingLeft = left + 'px'
+            wordInfo.dom.style.paddingRight = left + 'px'
+        })
+    }
+
+    var partOfSpeechMode = false
+    var startIndex
+    var endIndex
+
+    var highlight = () => {
+        let startIndex_ = startIndex < endIndex ? startIndex : endIndex 
+        let endIndex_ = startIndex > endIndex ? startIndex : endIndex 
+
+        let selected = words.filter(wordInfo => wordInfo.index >= startIndex_ && wordInfo.index <= endIndex_)
+        
+
+        words.forEach(wordInfo => {
+            wordInfo.selecting = false
+            wordInfo.dom.classList.remove('selected')
+            wordInfo.dom.firstChild.setAttribute('style', '')
+        })
+
+        selected.forEach((wordInfo, ind) => {
+            wordInfo.selecting = true
+            wordInfo.dom.classList.add('selected')
+            
+            if(ind == 0) {
+                wordInfo.dom.firstChild.setAttribute('style', 'border-bottom-left-radius: 5px; border-top-left-radius: 5px;')
+            }
+            if(ind == selected.length - 1) { 
+                wordInfo.dom.firstChild.setAttribute('style', wordInfo.dom.firstChild.getAttribute('style') + ' border-bottom-right-radius: 5px; border-top-right-radius: 5px;')
+            }
+        })
+        
+        partOfSpeechMode = selected.length > 0
+    }
+    
+
+    var onmousedown_ = (e) => {
+        // if (!cntrlIsPressed) 
+        // words.forEach(wordInfo => wordInfo.selecting = false)
+        startSelection = true
+        startIndex = parseInt(e.currentTarget.getAttribute('index'))
+        endIndex = startIndex
+        // let targetIndex = parseInt(e.currentTarget.getAttribute('index'))
+        // let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
+        // startToken = theWord
+        // theWord.selecting = true
+        highlight()
+        e.preventDefault()
+    }
+    var ontouchmove_ = (e) => {
+        var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+        var touch = evt.touches[0] || evt.changedTouches[0];
+        el = document.elementFromPoint(touch.pageX, touch.pageY)
+
+        currentTarget = el.getAttribute("index") ? el : el.parentElement
+        onmouseenter_(e, currentTarget)
+    }
+
+    var onmouseenter_ = (e, currentTarget) => {
+        if (!startSelection) return
+        currentTarget = currentTarget || e.currentTarget
+        endIndex = parseInt(currentTarget.getAttribute('index'))
+        // let targetIndex = parseInt(currentTarget.getAttribute('index'))
+        // let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
+        // let nextWord = words.find(wordInfo => wordInfo.index == targetIndex + 1)
+        // let prevtWord = words.find(wordInfo => wordInfo.index == targetIndex - 1)
+
+        // if ((nextWord && nextWord.selecting) || (prevtWord && prevtWord.selecting)) theWord.selecting = true
+        highlight()
+        e.preventDefault()
+    }
+
+    var onmouseup_ = (e) => {
+        startSelection = false
+        e.preventDefault()
+    }
+
+    var cont = document.querySelector('div.sent')
+    
+    const dehightlight = (e) => {
+        
+        if(e.target.className == 'sent'){
+            startIndex = -1
+            endIndex = -1
+
+            highlight()
+        }
+    }
+
+    cont.ontouchend = dehightlight
+    cont.onmouseup = dehightlight
+
+    var cntrlIsPressed = false;
+
+    document.body.addEventListener('keydown', (e) => { if (17 == e.which) cntrlIsPressed = true });
+
+    document.body.addEventListener('keyup', (e) => cntrlIsPressed = false );
+
+    var startSelection = false
+    var tags = []
+    var tagId = tags.length
+    var max_layers
+
+    const display_sent = (text) => {
+
+    
+        startSelection = false
+        cont.innerHTML = ''
+        words = text.split(' ').map(a => a.trim()).map(t => ({ text: t }))
+        
+
+        words.forEach((wordInfo, wordIndex) => {
+            span = document.createElement('span')
+            span.setAttribute('index', wordIndex)
+            span.setAttribute('draggable', false)
+
+            span.className = 'word'
+            span.innerHTML = '<span>' + wordInfo.text + '</span>'
+            cont.appendChild(span)
+
+            span.onmousedown = onmousedown_
+            span.onmouseenter = onmouseenter
+
+            span.addEventListener("pointerenter", onmouseenter_)
+
+
+            span.addEventListener("touchstart", onmousedown_)
+            span.addEventListener("touchmove", ontouchmove_)
+        
+            span.onmouseup = onmouseup_
+            span.ontouchcancel = onmouseup_
+            span.ontouchend = onmouseup_
+
+            wordInfo.dom = span
+            wordInfo.index = wordIndex
+            wordInfo.borders = []
+            wordInfo.selecting = false
+
+        })
+
+
+        drowBorders()
+        tags = []
+        tagId = tags.length
+    }
+
+    var orderTags = () => {
+        let allTaggedWords = [].concat.apply([], tags.map(tag => tag.words))
+        
+        countOfWords = allTaggedWords.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+        
+        max_layers = Array.from(countOfWords, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value)[0].value
+        words.forEach(wordInfo => {
+            wordInfo.occupiedLayers = []
+            wordInfo.dom.innerHTML = '<span>' + wordInfo.text + '</span>'
+            for (let layer_index = 0; layer_index < max_layers; layer_index++) {
+                let span = document.createElement('span')
+                wordInfo.dom.appendChild(span)
+            }
+        })
+
+        tags.forEach(tag => {
+            let tagWords = tag.words.map(wordIndex => words.find(word => word.index == wordIndex))
+            let avaliableLayer
+            let isAvaliable
+            for (avaliableLayer = 1; avaliableLayer <= max_layers; avaliableLayer++) {
+                isAvaliable = tagWords.reduce((isAvaliable, wordInfo) => {
+                    if (!isAvaliable) return isAvaliable
+                    return wordInfo.occupiedLayers.indexOf(avaliableLayer) === -1
+                }, !0)
+                if (isAvaliable) break
+            }
+
+            tagWords.forEach((wordInfo, wordInd) => {
+                if (!isAvaliable) {
+                    let span = document.createElement('span')
+                    wordInfo.dom.appendChild(span)
+                    avaliableLayer++
+                }
+
+                span = wordInfo.dom.querySelector('span:nth-child(' + (avaliableLayer + 1) + ')')
+                span.style.border = '2.5px solid ' + cols[tag.colorIndex]
+                span.style.background = cols[tag.colorIndex]
+                if (wordInd == 0) {
+                    span.classList.add('first')
+                    // span.innerHTML = '<i style="color:' + cols[tag.colorIndex] + '">Entity # 12</i>'
+                    span.innerHTML = '<i style="">' + tag.label + '</i>'
+                }
+                if (wordInd == tagWords.length - 1) span.classList.add('last')
+                wordInfo.occupiedLayers.push(avaliableLayer)
+            })
+        })
+
+        return
+    }
+    
+    var lines
+
+    var hideemptylines = () => {
+        cont = document.querySelector('div.sent')
+        let contWidth 
+        var style = window.getComputedStyle(cont, null);
+        contWidth = style.getPropertyValue("width");
+
+        // contWidth = cont.offsetWidth
+        lines = [[]]
+        offset = 0
+        words.forEach(wordInfo => {
+            if (offset + wordInfo.dom.offsetWidth <= contWidth - 200) {
+                lines[lines.length - 1].push(wordInfo)
+                offset += wordInfo.dom.offsetWidth
+            } else {
+                lines.push([wordInfo])
+                offset = wordInfo.dom.offsetWidth
+            }
+        })
+        lines.forEach(line => {
+            for (let layer_index = max_layers; layer_index > 0; layer_index--) {
+                let spans_in_a_line = line.map(wordInfo => wordInfo.dom.querySelectorAll('span')[layer_index])
+                let no_of_underlines = spans_in_a_line.map(a => !a.className && !a.getAttribute('style')).every(Boolean)
+                if (no_of_underlines) {
+                    spans_in_a_line.forEach(sp => sp.className = 'hide')
+                } else {
+                    break
+                }
+            }
+
+        })
+
+    }
+
+    var save = (label) => {
+        selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
+        if (selectedIndexes.length !== 0) tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes })
+
+        tags.forEach(tag => tag.drown = false)
+        words.forEach(wordInfo => {
+            wordInfo.selecting = false
+            wordInfo.borders = []
+        })
+
+        dehightlight({target:{className: 'sent'}})
+        orderTags()
+        drowBorders()
+        hideemptylines()
+        colIndex++
+        tagId++
+    }
+
+    
+    
+    var sentences = [
+        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
+        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
+        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
+        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."}
+    ] 
+
+    var next = () => {
+        if(active_menu + 1 <= all_menus.length){
+            active_menu++
+            
+        } else {
+            if(cur_sent + 1 >= sentences.length) return
+            active_menu = 1
+            cur_sent++
+            display_sent(sentences[cur_sent].text)
+        }
+        all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
+    }
+    
+    var prev = () => {
+        if(active_menu - 1 >= 1){
+            active_menu--
+            
+        } else {
+            if(cur_sent - 1 < 0) return
+            cur_sent--
+            active_menu = 1
+            display_sent(sentences[cur_sent].text)
+        }
+        all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
+    }
+    
+    // document.getElementById('next').addEventListener("click", next)
+    // document.getElementById('prev').addEventListener("click", prev)
+    
+    const labels = [
+        [
+            {id:1, text: "Anti west"},
+            {id:2, text: "Pro-kremlian"},
+            {id:3, text: "Hate speech"},
+            {id:1, text: "Border"},
+            {id:2, text: "Prisoners"},
+            {id:3, text: "Military"},
+        ],
+        [
+            {id:6, text: "Person"},
+            {id:7, text: "Organization"},
+            {id:8, text: "Event"},
+            {id:9, text: "Location"},
+            {id:10, text: "Hate speech target"},
+            {id:6, text: "Person"},
+            {id:7, text: "Organization"},
+            {id:8, text: "Event"},
+            {id:9, text: "Location"},
+            {id:10, text: "Hate speech target"},
+        ]
+    ]
+
+    document.onkeypress = (e => {
+        if (e.keyCode == 13) {
+            save()
+        }
+
+    })
+
+    var cur_sent = 0
+    display_sent(sentences[cur_sent].text)
+
+    const bottomLine = document.querySelector('div.bottom-line')
+
+    labels.forEach((labelGroup, ind) => {
+        let labelGroupCont = document.createElement('div')
+        labelGroupCont.setAttribute('ind', ind+1)
+        bottomLine.appendChild(labelGroupCont)
+        if(ind == 0) {labelGroupCont.className = 'show'}
+        
+        let labelCont = document.createElement('span')
+        labelCont.innerHTML = '«'
+        labelCont.className = 'prev'
+        labelCont.onclick = prev
+        labelGroupCont.appendChild(labelCont)
+
+        labelGroup.forEach(label => {
+            let labelCont = document.createElement('span')
+            labelCont.setAttribute('data-id', label.id)
+            labelCont.innerHTML = label.text
+            labelGroupCont.appendChild(labelCont)
+
+            labelCont.onclick = (e) => {
+                if(partOfSpeechMode){
+                    save(e.target.innerText)
+                } else {
+                    e.target.setAttribute('style', 'background: red')
+                }
+            }
+        })
+
+        labelCont = document.createElement('span')
+        labelCont.innerHTML = '»'
+        labelCont.className = 'next'
+        labelCont.onclick = next
+        labelGroupCont.appendChild(labelCont)
+    })
+
+    var active_menu = 1
+    var all_menus = [...document.querySelectorAll('.bottom-line > div')]
+</script>
+
+<!-- 
+    TODOS:
+return words as token arrays from API
+save button?
+tag button color
+toggle tag buttons
+part of speech mode
+
+-->
+</html>
