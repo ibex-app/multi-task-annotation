@@ -374,7 +374,7 @@
         // startToken = theWord
         // theWord.selecting = true
         highlight()
-        e.preventDefault()
+        // e.preventDefault()
     }
     var ontouchmove_ = (e) => {
         var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
@@ -396,12 +396,12 @@
 
         // if ((nextWord && nextWord.selecting) || (prevtWord && prevtWord.selecting)) theWord.selecting = true
         highlight()
-        e.preventDefault()
+        // e.preventDefault()
     }
 
     var onmouseup_ = (e) => {
         startSelection = false
-        e.preventDefault()
+        // e.preventDefault()
     }
 
     var cont = document.querySelector('div.sent')
