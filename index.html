@@ -444,6 +444,7 @@
     
 
     var onmousedown_ = (e) => {
+        if (e.touches.length === 2) return
         // if (!cntrlIsPressed) 
         // words.forEach(wordInfo => wordInfo.selecting = false)
         startSelection = true
@@ -457,6 +458,7 @@
         // e.preventDefault()
     }
     var ontouchmove_ = (e) => {
+        if (e.touches.length === 2) return
         var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
         var touch = evt.touches[0] || evt.changedTouches[0];
         el = document.elementFromPoint(touch.pageX, touch.pageY)
@@ -466,6 +468,7 @@
     }
 
     var onmouseenter_ = (e, currentTarget) => {
+        if (e.touches.length === 2) return
         if (!startSelection) return
         currentTarget = currentTarget || e.currentTarget
         endIndex = parseInt(currentTarget.getAttribute('index'))
@@ -800,5 +803,7 @@ tag button color
 toggle tag buttons
 part of speech mode
 
+
+relation sith two finger touch - how to scroll?
 -->
 </html>
