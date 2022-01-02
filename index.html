@@ -502,11 +502,16 @@
     var max_layers
 
     cont.ontouchstart =  (event) => {
-        if (event.touches.length === 2) lastTouchY = event.touches[0].clientY;
+        if (event.touches.length === 2) {
+            event.preventDefault()
+            lastTouchY = event.touches[0].clientY;
+        }
     }
 
     cont.ontouchmove = (event) => {
         if (event.touches.length === 2){
+            event.preventDefault()
+
             const delta = lastTouchY - event.touches[0].clientY;
             lastTouchY = event.touches[0].clientY;
     
