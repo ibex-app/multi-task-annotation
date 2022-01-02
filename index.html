@@ -14,9 +14,41 @@
 
         body {
             background: #eeeae7;
-            color:  #232324;
+            color: #232324;
             font-family: sans-serif;
             margin: 0;
+            /* display: flex; */
+            /* flex-wrap: wrap; */
+            /* flex-direction: column; */
+            height: 100%;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+        .header {
+            background: #d0c6bf;
+            width: 100%;
+        }
+        .bottom-line{
+            position: fixed;
+            bottom:0;
+            left: 0;
+            /* height: 20vh; */
+            width: 100%;
+            /* box-shadow: 0 0 2px 3px #51505040; */
+            background: #d0c6bf;
+            z-index: 10;
+        }
+        .sent {
+            padding: 10px 2vw;
+            width: 100%;
+            /* position: fixed; */
+            overflow-y: auto;
+            /* flex-grow: 5; */
+            padding-bottom: 25vh;
+            height: calc(100% - 17vh);
+            line-height: 1.7em;
         }
 
         *{
@@ -40,7 +72,7 @@
             margin-bottom: 9px;
             /* margin-top: 10px; */
             border: 2.5px solid transparent;
-            
+            position: relative;
             /* text-overflow: ellipsis;
             overflow: hidden;
             width: 160px;
@@ -60,53 +92,66 @@
             padding-bottom: 1px;
             padding-left: 3.5px;
             padding-right: 3.5px;
+            
         }
-
-        .sent {
-            padding: 5vh 4vw;
-            width: 100%;
-            height: 80vh;
-            position: fixed;
-            overflow-y: auto;
-        }
+        
 
         span.word i {
             position: absolute;
             font-size: 11px;
             white-space: nowrap;
-            top: -11px;
+            top: -17px;
             font-weight: bold;
             color: #545454;
+            padding-left: 3px;
             text-shadow: 0px 1px 3px white, 0px 2px 2px white;
         }
 
         span.word span.last {
             width: 100%;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
+            /* border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px; */
         }
 
         span.word span.first {
             width: 100%;
-            display: inline-block;
-            align-self: end;
-            position: relative;
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
+            /* display: inline-block; */
+            /* align-self: end; */
+            
+            /* border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px; */
             z-index: 5;
         }
 
-        /* span.word span.first::before {
+        span.word span.first::before {
             position: absolute;
             content: "";
-            border-radius: 100%;
-            width: 8px;
-            height: 8px;
+            border-top-right-radius: 100%;
+            width: 0px;
+            height: 5px;
             background: inherit;
-            top: -4px;
-            left: -13px;
-        } */
+            top: -7px;
+            left: -2px;
+            border: 2.5px solid;
+            border-color: inherit;
 
+        }
+        span.word span.last{
+            position: relative;
+        }
+        span.word span.last::after {
+            position: absolute;
+            content: "";
+            border-top-left-radius: 100%;
+            width: 0px;
+            height: 5px;
+            background: inherit;
+            top: -7px;
+            right: -2px;
+            border: 2.5px solid;
+            border-color: inherit;
+
+        }
         ::-moz-selection {
             /* Code for Firefox */
             color: inherit;
@@ -232,61 +277,81 @@
             width: 100%;
             height: 30px;
         }
-        .bottom-line{
-            position: fixed;
-            bottom:0;
-            left: 0;
-            height: 20vh;
-            width: 100%;
-            box-shadow: 0 0 2px 3px #51505040;
-            background: #eeeae7;
-            z-index: 10;
-        }
+        
 
-        .bottom-line > div > span.prev{
-            background: #8d639a;
-            margin-right: 12px;
-        }
-        .bottom-line > div > span.next{
-            background: #8d639a;
-            margin-left: 12px;
-        }
+        
         .bottom-line > div{
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 20vh;
+            /* position: absolute; */
+            margin-left: 50px;
+            left: 50px;
+            width: calc(100% - 100px);
+            /* height: 20vh; */
             display: none;
-            padding: 3px 6px;
+            padding: 3px 0px;
+            top: 0;
         }
         .bottom-line > div.show{
             display: block;
         }
         
-        .bottom-line > div > span{
+        .bottom-line > span.prev{
+            background: #8d639a;
+            left: 8px;
+            position: absolute;
+            top: 2.5px;
+        }
+        .bottom-line > span.next{
+            background: #8d639a;
+            margin-right: 12px;
+            left: auto;
+            right: 0px;
+            top: 2.5px;
+
+            position: absolute;
+        }
+        .bottom-line > div > span, .bottom-line > span, .header > span.save{
             text-align: center;
             padding: 5px 9px;
             cursor: pointer;
             margin: 3px 3px;
             display: inline-block;
-            background: #bf501f;
+            background: #828687; 
+            /* #bf501f; */
             color: whitesmoke;
             border-radius: 5px;
         }
-            
+       
+        .header > span {
+            padding: 8px;
+            cursor: pointer;
+            margin: 3px 3px;
+            display: inline-block;
+            color: #4e31314d;
+        }
+        
 
+        .header > span.save {
+            display: block;
+            right: 8px;
+            position: absolute;
+            top: 3px;
+            background: #7bc597;
+        }
     </style>
 </head>
 
 <body>
-
+    <div class="header">
+        <span>Q-723</span> <span>35 / 1753 / 4675</span> <span class="save" >save</a>
+    </div>
     <div class="sent">
         
     </div>
     
     <div class="bottom-line">
-        
-
+        <span onclick="prev()" class="prev">«</span>
+        <span onclick="next()" class="next">»</span>
+    
     </div>
 
 </body>
@@ -585,12 +650,12 @@
     
     
     var sentences = [
-        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
+        {id:1, text: "სამხრეთ აფრიკის პარლამენტში ხანძარი გაჩნდა. ცეცხლი შენობის სახურავიდან ამოდიოდა და კვამლი კილომეტრების მოშორებით ჩანდა. ინფორმაციას Reuters ავრცელებს. ინფრასტრუქტურის მინისტრმა პატრიცია დე ლილემ ჟურნალისტებს განუცხადა, რომ ხანძარი ლოკალიზებულია. მისი თქმით, დამწვარია ეროვნული ასამბლეის დარბაზი და ხანძარი მოედო სხვა ტერიტორიასაც. პირველადი ინფორმაციით, ხანძარი ერთ-ერთ ოფისში გაჩნდა და სპორტული დარბაზისკენ გავრცელდა. დე ლილის თქმით, ხანძრის შედეგად დაშავებულების შესახებ ინფორმაცია არ ვრცელდება. ხელისუფლების განცხადებით, მეხანძრეები სიტუაციას აკონტროლებენ. ხანძრის გამომწვევი მიზეზი ჯერჯერობით უცნობია. სამხრეთ აფრიკის პარლამენტში ხანძარი გაჩნდა. ცეცხლი შენობის სახურავიდან ამოდიოდა და კვამლი კილომეტრების მოშორებით ჩანდა. ინფორმაციას Reuters ავრცელებს. ინფრასტრუქტურის მინისტრმა პატრიცია დე ლილემ ჟურნალისტებს განუცხადა, რომ ხანძარი ლოკალიზებულია. მისი თქმით, დამწვარია ეროვნული ასამბლეის დარბაზი და ხანძარი მოედო სხვა ტერიტორიასაც. პირველადი ინფორმაციით, ხანძარი ერთ-ერთ ოფისში გაჩნდა და სპორტული დარბაზისკენ გავრცელდა. დე ლილის თქმით, ხანძრის შედეგად დაშავებულების შესახებ ინფორმაცია არ ვრცელდება. ხელისუფლების განცხადებით, მეხანძრეები სიტუაციას აკონტროლებენ. ხანძრის გამომწვევი მიზეზი ჯერჯერობით უცნობია."},
         {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
-        {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."},
+        {id:1, text: "ინტენსიური თოვის და დაბალი ტემპერატურის გამო, შიდასახელმწიფოებრივი მნიშვნელობის გომი-საჩხერე-ჭიათურა-ზესტაფონის საავტომობილო გზის კმ18-კმ40 მონაკვეთზე, აკრძალულია მისაბმელიანი და ნახევრადმისაბმელიანი ავტოტრანსპორტის მოძრაობა, ხოლო დანარჩენი სახის ავტოტრანსპორტის მოძრაობა თავისუფალია. საავტომობილო გზების დეპარტამენტის ინფორმაციით, გზის დანარჩენ მონაკვეთზე ავტოტრანსპორტის მოძრაობა თავისუფალია."},
         {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."}
     ] 
-
+    
     var next = () => {
         if(active_menu + 1 <= all_menus.length){
             active_menu++
@@ -621,6 +686,13 @@
     // document.getElementById('prev').addEventListener("click", prev)
     
     const labels = [
+        [
+            {id:1, text: "Negative"},
+            {id:2, text: "Mostly negative"},
+            {id:3, text: "Neutral"},
+            {id:2, text: "Mostly positive"},
+            {id:3, text: "Positive"},
+        ],
         [
             {id:1, text: "Anti west"},
             {id:2, text: "Pro-kremlian"},
@@ -661,11 +733,11 @@
         bottomLine.appendChild(labelGroupCont)
         if(ind == 0) {labelGroupCont.className = 'show'}
         
-        let labelCont = document.createElement('span')
-        labelCont.innerHTML = '«'
-        labelCont.className = 'prev'
-        labelCont.onclick = prev
-        labelGroupCont.appendChild(labelCont)
+        // let labelCont = document.createElement('span')
+        // labelCont.innerHTML = '«'
+        // labelCont.className = 'prev'
+        // labelCont.onclick = prev
+        // labelGroupCont.appendChild(labelCont)
 
         labelGroup.forEach(label => {
             let labelCont = document.createElement('span')
@@ -682,11 +754,11 @@
             }
         })
 
-        labelCont = document.createElement('span')
-        labelCont.innerHTML = '»'
-        labelCont.className = 'next'
-        labelCont.onclick = next
-        labelGroupCont.appendChild(labelCont)
+        // labelCont = document.createElement('span')
+        // labelCont.innerHTML = '»'
+        // labelCont.className = 'next'
+        // labelCont.onclick = next
+        // labelGroupCont.appendChild(labelCont)
     })
 
     var active_menu = 1
