@@ -46,7 +46,7 @@
             /* position: fixed; */
             overflow-y: auto;
             /* flex-grow: 5; */
-            padding-bottom: 25vh;
+            padding-bottom: 10vh;
             height: calc(100% - 17vh);
             line-height: 1.7em;
         }
@@ -501,6 +501,19 @@
     var tagId = tags.length
     var max_layers
 
+    cont.ontouchstart =  (event) => {
+        if (event.touches.length === 2) lastTouchY = event.touches[0].clientY;
+    }
+
+    cont.ontouchmove = (event) => {
+        if (event.touches.length === 2){
+            const delta = lastTouchY - event.touches[0].clientY;
+            lastTouchY = event.touches[0].clientY;
+    
+            cont.scrollTop += delta;
+        }
+    }
+
     const display_sent = (text) => {
 
     
@@ -661,10 +674,10 @@
             active_menu++
             
         } else {
-            if(cur_sent + 1 >= sentences.length) return
-            active_menu = 1
-            cur_sent++
-            display_sent(sentences[cur_sent].text)
+            // if(cur_sent + 1 >= sentences.length) return
+            // active_menu = 1
+            // cur_sent++
+            // display_sent(sentences[cur_sent].text)
         }
         all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
     }
@@ -674,10 +687,10 @@
             active_menu--
             
         } else {
-            if(cur_sent - 1 < 0) return
-            cur_sent--
-            active_menu = 1
-            display_sent(sentences[cur_sent].text)
+            // if(cur_sent - 1 < 0) return
+            // cur_sent--
+            // active_menu = 1
+            // display_sent(sentences[cur_sent].text)
         }
         all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
     }
@@ -715,12 +728,12 @@
         ]
     ]
 
-    document.onkeypress = (e => {
-        if (e.keyCode == 13) {
-            save()
-        }
+    // document.onkeypress = (e => {
+    //     if (e.keyCode == 13) {
+    //         save()
+    //     }
 
-    })
+    // })
 
     var cur_sent = 0
     display_sent(sentences[cur_sent].text)
