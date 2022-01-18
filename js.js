@@ -73,6 +73,10 @@
         })
         
         partOfSpeechMode = selected.length > 0
+
+        if(selected.length == 0) setMenu('nothing-selected')
+        if(selected.length > 0 & selected.length < 3) setMenu('named-entity')
+        if(selected.length > 3) setMenu('topic')
     }
     
 
@@ -289,7 +293,30 @@
             }
 
         })
+    }
 
+    const saveAndNext = async () => {
+        if(cur_sent + 1 >= sentences.length) return
+        active_menu = 'nothing-selected'
+        cur_sent++
+        display_sent(sentences[cur_sent].text)
+        //TEMP:
+        // let tx = document.querySelectorAll('.header span')[1].innerText.split('-')[1]
+        // document.querySelectorAll('.header span')[1].innerText = tx + 1
+        
+    
+        // let tagsPostData = { tags: tags.map(tag => ({ words: tag.words, label: tag.label })) }
+        // var data = new FormData();
+        // data.append( "json", JSON.stringify( tagsPostData ) );
+
+        // fetch(API + 'save_and_next',
+        //     {
+        //         method: "POST",
+        //         body: data
+        //     })
+        //     .then(res => res.json())
+        //     .then(display_sent)
+    
     }
 
     var save = (label) => {
@@ -297,12 +324,12 @@
         if (selectedIndexes.length !== 0) tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes })
 
         tags.forEach(tag => tag.drown = false)
-        words.forEach(wordInfo => {
-            wordInfo.selecting = false
-            wordInfo.borders = []
-        })
+        // words.forEach(wordInfo => {
+        //     wordInfo.selecting = false
+        //     wordInfo.borders = []
+        // })
 
-        dehightlight({target:{className: 'sent'}})
+        // dehightlight({target:{className: 'sent'}})
         orderTags()
         drowBorders()
         hideemptylines()
@@ -312,78 +339,110 @@
 
     
     
+    
     var sentences = [
-        {id:1, text: "Chris Whitty, Jonathan Van-Tam and Tony Blair are knighted, Joanna Lumley is made a dame, and Spice Girl Mel B gets an"},
+        {id:1, text: `Conservative and opposition MPs are demanding answers from Boris Johnson over claims he attended a drinks event in the No 10 garden during lockdown. Labour's deputy leader Angela Rayner said that if he was there, and he lied about it, his position is "untenable". While Liberal Democrat leader Sir Ed Davey said the PM should resign now. Mr Johnson will appear at Prime Minister's Questions later - his first public appearance since details of the May 2020 event emerged. The prime minister has so far declined to say whether he attended the gathering, but witnesses have told the BBC both he and his wife were among 30 people at the drinks held on the 20 May 2020. The BBC has been told that Mr Johnson will not make a separate statement on parties in the House of Commons but a senior government source didn't rule out him making some remarks at the start of Prime Minister's Questions.`},
         {id:1, text: "სამხრეთ აფრიკის პარლამენტში ხანძარი გაჩნდა. ცეცხლი შენობის სახურავიდან ამოდიოდა და კვამლი კილომეტრების მოშორებით ჩანდა. ინფორმაციას Reuters ავრცელებს. ინფრასტრუქტურის მინისტრმა პატრიცია დე ლილემ ჟურნალისტებს განუცხადა, რომ ხანძარი ლოკალიზებულია. მისი თქმით, დამწვარია ეროვნული ასამბლეის დარბაზი და ხანძარი მოედო სხვა ტერიტორიასაც. პირველადი ინფორმაციით, ხანძარი ერთ-ერთ ოფისში გაჩნდა და სპორტული დარბაზისკენ გავრცელდა. დე ლილის თქმით, ხანძრის შედეგად დაშავებულების შესახებ ინფორმაცია არ ვრცელდება. ხელისუფლების განცხადებით, მეხანძრეები სიტუაციას აკონტროლებენ. ხანძრის გამომწვევი მიზეზი ჯერჯერობით უცნობია. სამხრეთ აფრიკის პარლამენტში ხანძარი გაჩნდა. ცეცხლი შენობის სახურავიდან ამოდიოდა და კვამლი კილომეტრების მოშორებით ჩანდა. ინფორმაციას Reuters ავრცელებს. ინფრასტრუქტურის მინისტრმა პატრიცია დე ლილემ ჟურნალისტებს განუცხადა, რომ ხანძარი ლოკალიზებულია. მისი თქმით, დამწვარია ეროვნული ასამბლეის დარბაზი და ხანძარი მოედო სხვა ტერიტორიასაც. პირველადი ინფორმაციით, ხანძარი ერთ-ერთ ოფისში გაჩნდა და სპორტული დარბაზისკენ გავრცელდა. დე ლილის თქმით, ხანძრის შედეგად დაშავებულების შესახებ ინფორმაცია არ ვრცელდება. ხელისუფლების განცხადებით, მეხანძრეები სიტუაციას აკონტროლებენ. ხანძრის გამომწვევი მიზეზი ჯერჯერობით უცნობია."},
         {id:1, text: "ინტენსიური თოვის და დაბალი ტემპერატურის გამო, შიდასახელმწიფოებრივი მნიშვნელობის გომი-საჩხერე-ჭიათურა-ზესტაფონის საავტომობილო გზის კმ18-კმ40 მონაკვეთზე, აკრძალულია მისაბმელიანი და ნახევრადმისაბმელიანი ავტოტრანსპორტის მოძრაობა, ხოლო დანარჩენი სახის ავტოტრანსპორტის მოძრაობა თავისუფალია. საავტომობილო გზების დეპარტამენტის ინფორმაციით, გზის დანარჩენ მონაკვეთზე ავტოტრანსპორტის მოძრაობა თავისუფალია."},
         {id:1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language."}
     ] 
     
     var next = () => {
-        if(active_menu + 1 <= all_menus.length){
-            active_menu++
-            
-        } else {
-            // if(cur_sent + 1 >= sentences.length) return
-            // active_menu = 1
-            // cur_sent++
-            // display_sent(sentences[cur_sent].text)
-        }
+        let menuLabels = labels.map(l => l.name)
+        let curentMenuIndex = menuLabels.indexOf(active_menu)
+        
+        if(curentMenuIndex + 1 < all_menus.length){
+
+            active_menu = menuLabels[curentMenuIndex + 1]
+            setMenu(active_menu)
+        } 
+
         all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
     }
     
     var prev = () => {
-        if(active_menu - 1 >= 1){
-            active_menu--
-            
-        } else {
-            // if(cur_sent - 1 < 0) return
-            // cur_sent--
-            // active_menu = 1
-            // display_sent(sentences[cur_sent].text)
-        }
+        let menuLabels = labels.map(l => l.name)
+        let curentMenuIndex = menuLabels.indexOf(active_menu)
+
+        if(curentMenuIndex - 1 >= 0){
+            active_menu = menuLabels[curentMenuIndex - 1]
+            setMenu(active_menu)
+        } 
+
         all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
     }
     
+    const selectAll = () => {
+        words.forEach(wordInfo => {
+            wordInfo.selecting = true
+        })
+        startIndex = 0
+        endIndex = words.length - 1
+        highlight()
+        // hideemptylines()
+    }
+
+    const setMenu = (menuName) => {
+        all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == menuName ? 'show' : ''))
+        document.querySelector('.label-title').innerText = menuName.replace('-', ' ')
+    }
     // document.getElementById('next').addEventListener("click", next)
     // document.getElementById('prev').addEventListener("click", prev)
     
     const labels = [
-        [
-            {id:1, text: "Negative"},
-            {id:2, text: "Mostly negative"},
-            {id:3, text: "Neutral"},
-            {id:2, text: "Mostly positive"},
-            {id:3, text: "Positive"},
-        ],
-        [
-            {id:1, text: "Anti west"},
-            {id:2, text: "Pro-kremlian"},
-            {id:3, text: "Hate speech"},
-            {id:1, text: "Border"},
-            {id:2, text: "Prisoners"},
-            {id:3, text: "Military"},
-        ],
-        [
-            {id:1, text: "Low"},
-            {id:2, text: "Medium"},
-            {id:3, text: "Hight"},
-            // {id:1, text: "1"},
-            // {id:2, text: "2"},
-            // {id:3, text: "Military"},
-        ],
-        [
-            {id:6, text: "Person"},
-            {id:7, text: "Organization"},
-            {id:8, text: "Event"},
-            {id:9, text: "Location"},
-            {id:10, text: "Hate speech target"},
-            {id:6, text: "Person"},
-            {id:7, text: "Organization"},
-            {id:8, text: "Event"},
-            {id:9, text: "Location"},
-            {id:10, text: "Hate speech target"},
-        ]
+        {
+            name: 'nothing-selected',
+            values: [
+                {id:1, text: "Select all"},
+            ]
+        },
+        {
+            name: 'topic',
+            values: [
+                {id:1, text: "Anti west"},
+                {id:2, text: "Pro-kremlian"},
+                {id:3, text: "Hate speech"},
+                {id:1, text: "Border"},
+                {id:2, text: "Prisoners"},
+                {id:3, text: "Military"},
+            ]
+        },
+        {
+            name: 'named-entity',
+            values: [
+                {id:6, text: "Person"},
+                {id:7, text: "Organization"},
+                {id:8, text: "Event"},
+                {id:9, text: "Location"},
+                {id:10, text: "Hate speech target"},
+                {id:6, text: "Person"},
+                {id:7, text: "Organization"},
+                {id:8, text: "Event"},
+                {id:9, text: "Location"},
+                {id:10, text: "Hate speech target"},
+            ]
+        },
+        {
+            name: 'sentiment',
+            values: [
+                {id:1, text: "Negative"},
+                {id:2, text: "Mostly negative"},
+                {id:3, text: "Neutral"},
+                {id:2, text: "Mostly positive"},
+                {id:3, text: "Positive"},
+            ]
+        },{
+            name: 'relation',
+            values: [
+                // {id:1, text: "Collegue"},
+                // {id:1, text: "Family member"},
+                // {id:2, text: "Mostly negative"},
+                // {id:3, text: "Neutral"},
+                // {id:2, text: "Mostly positive"},
+                // {id:3, text: "Positive"},
+            ]
+        },
+        
     ]
 
     // document.onkeypress = (e => {
@@ -396,25 +455,14 @@
     var cur_sent = 0
     display_sent(sentences[cur_sent].text)
 
-    const getSentence = () => {
-        fetch
-            .get()
-            .then(res => res.json())
-            .then(display_sent)
-    }
+    const API = 'https://api.ibex-app.io/'
 
-    const saveSentence = () => {
-        fetch
-            .post()
-            .then(res => res.json())
-            .then(getSentence)
-    }
 
     const bottomLine = document.querySelector('div.bottom-line')
 
     labels.forEach((labelGroup, ind) => {
         let labelGroupCont = document.createElement('div')
-        labelGroupCont.setAttribute('ind', ind+1)
+        labelGroupCont.setAttribute('ind', labelGroup.name)
         bottomLine.appendChild(labelGroupCont)
         if(ind == 0) {labelGroupCont.className = 'show'}
         
@@ -424,18 +472,23 @@
         // labelCont.onclick = prev
         // labelGroupCont.appendChild(labelCont)
 
-        labelGroup.forEach(label => {
+        labelGroup.values.forEach(label => {
             let labelCont = document.createElement('span')
             labelCont.setAttribute('data-id', label.id)
             labelCont.innerHTML = label.text
             labelGroupCont.appendChild(labelCont)
 
             labelCont.onclick = (e) => {
+                console.log(e.target.innerText)
+                if(e.target.innerText == 'Select all') {
+                    selectAll()
+                    return
+                }
                 if(partOfSpeechMode){
                     save(e.target.innerText)
-                } else {
-                    e.target.setAttribute('style', 'background: red')
-                }
+                    return
+                } 
+                setMenu('nothing-selected')
             }
         })
 
@@ -446,5 +499,5 @@
         // labelGroupCont.appendChild(labelCont)
     })
 
-    var active_menu = 1
+    var active_menu = 'nothing-selected'
     var all_menus = [...document.querySelectorAll('.bottom-line > div')]
