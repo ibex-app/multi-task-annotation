@@ -405,6 +405,9 @@
                 {id:1, text: "Border"},
                 {id:2, text: "Prisoners"},
                 {id:3, text: "Military"},
+                {id:3, text: "Terorism"},
+                {id:3, text: "Gender"},
+                {id:3, text: "Anti LGBTQ"},
             ]
         },
         {
@@ -434,16 +437,30 @@
         },{
             name: 'relation',
             values: [
-                // {id:1, text: "Collegue"},
-                // {id:1, text: "Family member"},
-                // {id:2, text: "Mostly negative"},
-                // {id:3, text: "Neutral"},
-                // {id:2, text: "Mostly positive"},
-                // {id:3, text: "Positive"},
+                {id:1, text: "Cause-Effect"},
+                {id:1, text: "Component-Whole"},
+                {id:1, text: "Content-Container"},
+                {id:1, text: "Entity-Destination"},
+                {id:1, text: "Entity-Origin"},
+                {id:1, text: "Instrument-Agency"},
+                {id:1, text: "Member-Collection"},
+                {id:1, text: "Message-Topic"},
+                {id:1, text: "Product-Producer"}
             ]
         },
         
     ]
+
+    // Cause-Effect(CE): An event or object leads to an effect(those cancers were caused by radiation exposures)
+    // Instrument-Agency(IA): An agent uses an instrument(phone operator)
+    // Product-Producer(PP): A producer causes a product to exist (a factory manufactures suits)
+    // Content-Container(CC): An object is physically stored in a delineated area of space (a bottle full of honey was weighed) Hendrickx, Kim, Kozareva, Nakov, O S´ eaghdha, Pad ´ o,´ Pennacchiotti, Romano, Szpakowicz Task Overview Data Creation Competition Results and Discussion The Inventory of Semantic Relations (III)
+    // Entity-Origin(EO): An entity is coming or is derived from an origin, e.g., position or material (letters from foreign countries)
+    // Entity-Destination(ED): An entity is moving towards a destination (the boy went to bed)
+    // Component-Whole(CW): An object is a component of a larger whole (my apartment has a large kitchen)
+    // Member-Collection(MC): A member forms a nonfunctional part of a collection (there are many trees in the forest)
+    // Message-Topic(CT): An act of communication, written or spoken, is about a topic (the lecture was about semantics)
+    // OTHER: If none of the above nine relations appears to be suitable.
 
     // document.onkeypress = (e => {
     //     if (e.keyCode == 13) {
