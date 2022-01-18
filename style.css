@@ -316,6 +316,7 @@ button {
     left: 3.3em;
     background: none;
     color: gray;
+    text-transform: capitalize;
 }
 .bottom-line > div > span, .bottom-line > span, .header > span.save{
     text-align: center;
