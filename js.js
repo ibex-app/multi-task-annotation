@@ -85,7 +85,7 @@ var onmouseup_ = (e) => {
     startSelection = false
     // e.preventDefault()
 }
-var parrent_cont = document.querySelector('div.sent')
+var parrentCont = document.querySelector('div.sent')
 var cont = document.querySelector('div.sent .scrolling')
 
 const dehightlight = (e) => {
@@ -124,16 +124,17 @@ cont.ontouchmove = (event) => {
         const delta = lastTouchY - event.touches[0].clientY;
         lastTouchY = event.touches[0].clientY;
 
-        cont.scrollTop += delta;
+        parrentCont.scrollTop += delta;
     }
 }
 
 const display_sent = (text) => {
     startSelection = false
-    cont.childNodes.forEach(el => {
-        if (el.tagName == 'CANVAS') return
-        el.remove()
-    })
+
+    
+    let ndoesToRemove = [...cont.childNodes].filter(el => el.tagName !== 'CANVAS')
+    ndoesToRemove.forEach(el => el.remove())
+
     words = text.split(' ').map(a => a.trim()).map(t => ({ text: t }))
 
 
