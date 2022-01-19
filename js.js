@@ -210,7 +210,7 @@ var orderTagsAndDrowUnderlines = () => {
             }
 
             span = wordInfo.dom.querySelector('span:nth-child(' + (avaliableLayer + 1) + ')')
-            span.style.border = '2.5px solid ' + cols[tag.colorIndex]
+            span.style.borderBottom = '3px solid ' + cols[tag.colorIndex]
             span.style.background = cols[tag.colorIndex]
             if (wordInd == 0) {
                 if(tag.relation == 'start'){
@@ -423,22 +423,22 @@ const labels = [
         name: 'named-entity',
         values: [
 // { id: 6, text: "CARDINAL" },
-{ id: 6, text: "DATE" },
-{ id: 6, text: "EVENT" },
-{ id: 6, text: "FAC" },
-{ id: 6, text: "GPE" },
-{ id: 6, text: "LANGUAGE" },
-{ id: 6, text: "LAW" },
-{ id: 6, text: "LOC" },
-{ id: 6, text: "MONEY" },
-{ id: 6, text: "NORP" },
+{ id: 6, text: "Date" },
+{ id: 6, text: "Event" },
+{ id: 6, text: "Fac" },
+{ id: 6, text: "Gpe" },
+{ id: 6, text: "Language" },
+{ id: 6, text: "Law" },
+{ id: 6, text: "Loc" },
+{ id: 6, text: "money" },
+// { id: 6, text: "NORP" },
 // { id: 6, text: "ORDINAL" },
-{ id: 6, text: "ORG" },
+{ id: 6, text: "Org" },
 // { id: 6, text: "PERCENT" },
-{ id: 6, text: "PERSON" },
-{ id: 6, text: "PRODUCT" },
-{ id: 6, text: "QUANTITY" },
-{ id: 6, text: "TIME" },
+{ id: 6, text: "Person" },
+{ id: 6, text: "Product" },
+{ id: 6, text: "Quantity" },
+{ id: 6, text: "Time" },
 // { id: 6, text: "WORK_OF_ART" },
             // { id: 6, text: "Person" },
             // { id: 7, text: "Organization" },
@@ -586,10 +586,10 @@ function drawRelation(el1, el2, color) {
     // ctx.lineCap = 'round';
     let startOffsetX, startOffsetY, endOffsetX, endOffsetY, el1OffsetX, el1OffsetY, el2OffsetX, el2OffsetY
 
-    el1OffsetX = el1.parentElement.offsetLeft + el1.offsetLeft
+    el1OffsetX = el1.parentElement.offsetLeft + el1.offsetLeft + 6
     el1OffsetY = el1.parentElement.offsetTop + el1.offsetTop 
 
-    el2OffsetX = el2.parentElement.offsetLeft + el2.offsetLeft
+    el2OffsetX = el2.parentElement.offsetLeft + el2.offsetLeft + 6 
     el2OffsetY = el2.parentElement.offsetTop + el2.offsetTop
 
     if(el1OffsetY < el2OffsetY){
