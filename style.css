@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
+:root {
+    --unit-size: 45px;
+}
+  
+
 body {
     background: #eeeae7;
     color: #232324;
@@ -21,6 +26,7 @@ body {
     width: 100%;
     border-bottom: 1px solid #c6bfba94;
     flex-grow: 1;
+    min-height:  var(--unit-size);
 }
 .bottom-line{
     /* position: fixed; */
@@ -31,7 +37,7 @@ body {
     border-top: 1px solid #c6bfba94;
     background: #eeeae7;
     z-index: 10;
-    padding: 5px;
+    /* padding: 5px; */
     flex-grow: 1;
 }
 .sent {
@@ -43,7 +49,7 @@ body {
     /* flex-grow: 5; */
     /* padding-bottom: 10vh; */
     height: calc(100% - 17vh);
-    line-height: 1.7em;
+    line-height: 15pt;
     position: relative;
     flex-grow: 100;
 }
@@ -72,7 +78,7 @@ span.word {
     position: relative;
     /* margin: 10px 0; */
     cursor: pointer;
-    font-size: 1.3em;
+    font-size: 13pt;
 }
 
 span.word span {
@@ -82,7 +88,7 @@ span.word span {
     height: 0px;
     margin-bottom: 9px;
     /* margin-top: 10px; */
-    border: 2.5px solid transparent;
+    border-bottom: 3px solid transparent;
     position: relative;
     /* text-overflow: ellipsis;
     overflow: hidden;
@@ -103,7 +109,10 @@ span.word span:first-child {
     padding-bottom: 1px;
     padding-left: 3.5px;
     padding-right: 3.5px;
-    
+}
+
+span.word span:nth-child(2){
+    margin-top: 3px;
 }
 
 
@@ -111,11 +120,12 @@ span.word i {
     position: absolute;
     font-size: 11px;
     white-space: nowrap;
-    top: -17px;
+    top: -13px;
     font-weight: bold;
     color: #545454;
-    padding-left: 3px;
+    padding-left: 5px;
     text-shadow: 0px 1px 3px white, 0px 2px 2px white;
+    z-index: 9;
 }
 
 span.word span.last {
@@ -141,9 +151,10 @@ span.word span.first::before {
     width: 12px;
     height: 12px;
     background: inherit;
-    bottom: -6px;
-    left: -9px;
+    bottom: -6.5px;
+    left: 0;
     border-color: inherit;
+    z-index: 5;
 }
 
 span.word span.last{
@@ -152,14 +163,14 @@ span.word span.last{
 span.word span.last::after {
     position: absolute;
     content: "";
-    border-top-left-radius: 100%;
-    width: 0px;
-    height: 5px;
+    border-radius: 100%;
+    width: 8px;
+    height: 8px;
     background: inherit;
-    bottom: 0;
-    right: -2px;
-    border: 2.5px solid;
+    bottom: -5.5px;
+    right: 0px;
     border-color: inherit;
+    z-index: 5;
 
 }
 ::-moz-selection {
@@ -293,63 +304,82 @@ button {
 .bottom-line > div{
     width: 100%;
     display: none;
-    padding: 3px 4px;
-    margin-bottom: 3em;
+    /* padding: 3px 4px; */
+    margin-bottom: var(--unit-size);
+    min-height: var(--unit-size);
 }
 .bottom-line > div.show{
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
 }
-
+.bottom-line > span.prev, .bottom-line > span.next, .bottom-line > span.label-title {
+    height:var(--unit-size);
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
 .bottom-line > span.prev{
     background: #8d639a;
-    left: 8px;
+    left: 0;
     position: absolute;
-    bottom: 8.5px;
-    width: 2.3em;
+    bottom: 0;
+    width: var(--unit-size);
+    color:whitesmoke
+    
 }
 .bottom-line > span.next{
     background: #8d639a;
-    margin-right: 12px;
+    /* margin-right: 12px; */
     left: auto;
     right: 0px;
-    bottom: 8.5px;
+    bottom: 0;
     position: absolute;
-    width: 2.3em;
+    width: var(--unit-size);
+    color:whitesmoke
+    
 }
 .bottom-line > span.label-title {
     position: absolute;
-    bottom: 8px;
-    left: 3.3em;
+    bottom: 0;
+    left: calc(var(--unit-size) + 8px);
     background: none;
     color: gray;
     text-transform: capitalize;
 }
 .bottom-line > div > span, .bottom-line > span, .header > span.save{
     text-align: center;
-    padding: 9px;
+    padding: 0px 22px;
     cursor: pointer;
-    margin: 3px;
+    margin: 0;
     display: inline-block;
-    background: #828687; 
+    /* background: #828687;  */
     /* #bf501f; */
-    color: whitesmoke;
-    border-radius: 5px;
+    /* color: whitesmoke; */
+    /* border-radius: 5px; */
+    height: var(--unit-size);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 2;
+    font-size: 11pt;
 }
 
 .header > span {
     padding: 8px;
     cursor: pointer;
-    margin: 12px 3px;
     display: inline-block;
-    color: #4e31314d;
+    color: whitesmoke;
+    height: var(--unit-size);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .header > span.save {
-    display: block;
-    right: 8px;
+    right: 0;
     position: absolute;
-    top: 8px;
+    top: 0;
     background: #7bc597;
 }
 * {
@@ -393,5 +423,5 @@ canvas{
 
 .header > span.save.undo{
     right: auto;
-    left: 8px;
+    left: 0;
 }
