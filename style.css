@@ -13,32 +13,39 @@ body {
     width: 100%;
     left: 0;
     top: 0;
+    display: flex;
+    flex-direction: column;
 }
 .header {
     /* background: #d0c6bf; */
     width: 100%;
     border-bottom: 1px solid #c6bfba94;
+    flex-grow: 1;
 }
 .bottom-line{
-    position: fixed;
-    bottom:0;
-    left: 0;
+    /* position: fixed; */
+    /* bottom:0; */
+    /* left: 0; */
     /* height: 20vh; */
     width: 100%;
     border-top: 1px solid #c6bfba94;
     background: #eeeae7;
     z-index: 10;
     padding: 5px;
+    flex-grow: 1;
 }
 .sent {
-    padding: 20px;
+    padding: 10px;
     width: 100%;
     /* position: fixed; */
     overflow-y: auto;
+    /* overflow-y: hidden; */
     /* flex-grow: 5; */
-    padding-bottom: 10vh;
+    /* padding-bottom: 10vh; */
     height: calc(100% - 17vh);
     line-height: 1.7em;
+    position: relative;
+    flex-grow: 100;
 }
 /* width */
 .sent::-webkit-scrollbar {
@@ -130,16 +137,15 @@ span.word span.first {
 span.word span.first::before {
     position: absolute;
     content: "";
-    border-top-right-radius: 100%;
-    width: 0px;
-    height: 5px;
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
     background: inherit;
-    bottom: 0;
-    left: -2px;
-    border: 2.5px solid;
+    bottom: -6px;
+    left: -9px;
     border-color: inherit;
-
 }
+
 span.word span.last{
     position: relative;
 }
@@ -355,3 +361,37 @@ button {
                 user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
     }
+.scrolling{
+    position: relative;
+    padding: 10px;
+    width: 100%;
+    overflow-x: hidden;
+}
+canvas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.bottom-line > div > span.hide {
+    display: none;
+}
+
+.scroll-btn{
+    position: absolute;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    top: 20px;
+    border-radius: 50%;
+    background: #00000036;
+    cursor: pointer;
+}
+
+.header > span.save.undo{
+    right: auto;
+    left: 8px;
+}
