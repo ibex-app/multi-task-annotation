@@ -369,7 +369,7 @@ button {
     cursor: pointer;
     display: inline-block;
     color: whitesmoke;
-    height: var(--unit-size);
+    height: 42px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
