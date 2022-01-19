@@ -422,16 +422,34 @@ const labels = [
     {
         name: 'named-entity',
         values: [
-            { id: 6, text: "Person" },
-            { id: 7, text: "Organization" },
-            { id: 8, text: "Event" },
-            { id: 9, text: "Location" },
+// { id: 6, text: "CARDINAL" },
+{ id: 6, text: "DATE" },
+{ id: 6, text: "EVENT" },
+{ id: 6, text: "FAC" },
+{ id: 6, text: "GPE" },
+{ id: 6, text: "LANGUAGE" },
+{ id: 6, text: "LAW" },
+{ id: 6, text: "LOC" },
+{ id: 6, text: "MONEY" },
+{ id: 6, text: "NORP" },
+// { id: 6, text: "ORDINAL" },
+{ id: 6, text: "ORG" },
+// { id: 6, text: "PERCENT" },
+{ id: 6, text: "PERSON" },
+{ id: 6, text: "PRODUCT" },
+{ id: 6, text: "QUANTITY" },
+{ id: 6, text: "TIME" },
+// { id: 6, text: "WORK_OF_ART" },
+            // { id: 6, text: "Person" },
+            // { id: 7, text: "Organization" },
+            // { id: 8, text: "Event" },
+            // { id: 9, text: "Location" },
             { id: 10, text: "Hate speech target" },
-            { id: 6, text: "Person" },
-            { id: 7, text: "Organization" },
-            { id: 8, text: "Event" },
-            { id: 9, text: "Location" },
-            { id: 10, text: "Hate speech target" },
+            // { id: 6, text: "Person" },
+            // { id: 7, text: "Organization" },
+            // { id: 8, text: "Event" },
+            // { id: 9, text: "Location" },
+            // { id: 10, text: "Hate speech target" },
         ]
     },
     {
@@ -459,6 +477,24 @@ const labels = [
     },
 
 ]
+// CARDINAL 	cardinal value
+// DATE 	date value
+// EVENT 	event name
+// FAC 	building name
+// GPE 	geo-political entity
+// LANGUAGE 	language name
+// LAW 	law name
+// LOC 	location name
+// MONEY 	money name
+// NORP 	affiliation
+// ORDINAL 	ordinal value
+// ORG 	organization name
+// PERCENT 	percent value
+// PERSON 	person name
+// PRODUCT 	product name
+// QUANTITY 	quantity value
+// TIME 	time value
+// WORK_OF_ART 	name of work of art
 
 // Cause-Effect(CE): An event or object leads to an effect(those cancers were caused by radiation exposures)
 // Instrument-Agency(IA): An agent uses an instrument(phone operator)
