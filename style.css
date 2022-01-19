@@ -49,7 +49,7 @@ body {
     /* flex-grow: 5; */
     /* padding-bottom: 10vh; */
     height: calc(100% - 17vh);
-    line-height: 15pt;
+    line-height: 10pt;
     position: relative;
     flex-grow: 100;
 }
@@ -76,7 +76,7 @@ span.word {
     flex-direction: column;
     /* padding: 2px 4px; */
     position: relative;
-    /* margin: 10px 0; */
+    margin-bottom: 5px;
     cursor: pointer;
     font-size: 13pt;
 }
@@ -112,7 +112,7 @@ span.word span:first-child {
 }
 
 span.word span:nth-child(2){
-    margin-top: 3px;
+    margin-top: 4.5px;
 }
 
 
@@ -278,8 +278,9 @@ span.word span.hide {
 }
 
 span.word.selected span:nth-child(1) {
-    background: rgba(0,0,0, 0.2) none repeat scroll 0% 0%;
+    background: rgb(191, 187, 185) none repeat scroll 0% 0%;
     border: none;
+    box-shadow: 0 0 0px 4px rgb(191, 187, 185);
 }
 
 span.word.selected:first-child > span:first-child {
