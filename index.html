@@ -10,16 +10,18 @@
                       minimum-scale=1.0, maximum-scale=1.0, 
                       user-scalable=no, target-densitydpi=device-dpi">
     <link  media="all" rel="stylesheet" href="style.css" />
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
     <div class="header">
         <!-- <span></span> 
         <span> - </span>  -->
-        <span class="save undo" >undo</span>
+        <span class="save undo" ><i class="fas fa-undo"></i>
+        </span>
         <!-- <span>35 / 1753 / 4675</span>  -->
-        <span class="save" onclick="saveAndNext()" >save</apan>
+        <span class="save" onclick="saveAndNext()" ><i class="fas fa-save"></i></apan>
     </div>
     <div class="sent">
         <div class="scrolling">
@@ -29,8 +31,8 @@
     </div>
     
     <div class="bottom-line">
-        <span onclick="prev()" class="prev">«</span>
-        <span onclick="next()" class="next">»</span>
+        <span onclick="prev()" class="prev"><i class="fas fa-arrow-left"></i></span>
+        <span onclick="next()" class="next"><i class="fas fa-arrow-right"></i></span>
         <span class="label-title" >Sentiment</span> 
     </div>
 
