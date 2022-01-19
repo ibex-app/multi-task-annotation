@@ -10,16 +10,22 @@
                       minimum-scale=1.0, maximum-scale=1.0, 
                       user-scalable=no, target-densitydpi=device-dpi">
     <link  media="all" rel="stylesheet" href="style.css" />
+
 </head>
 
 <body>
     <div class="header">
-        <span>Q-723</span> 
+        <span></span> 
+        <span> - </span> 
+        <span class="save undo" >undo</span>
         <!-- <span>35 / 1753 / 4675</span>  -->
-        <span class="save" >save</a>
+        <span class="save" onclick="saveAndNext()" >save</apan>
     </div>
     <div class="sent">
-        
+        <div class="scrolling">
+            <canvas ></canvas>
+        </div>
+        <!-- <div class="scroll-btn"></div> -->
     </div>
     
     <div class="bottom-line">
