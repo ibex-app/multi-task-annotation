@@ -444,7 +444,7 @@ const labels = [
             // { id: 7, text: "Organization" },
             // { id: 8, text: "Event" },
             // { id: 9, text: "Location" },
-            { id: 10, text: "Hate speech target" },
+            { id: 10, text: "Target" },
             // { id: 6, text: "Person" },
             // { id: 7, text: "Organization" },
             // { id: 8, text: "Event" },
