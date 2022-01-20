@@ -25,10 +25,10 @@ var highlight = () => {
         wordInfo.dom.classList.add('selected')
 
         if (ind == 0) {
-            wordInfo.dom.firstChild.setAttribute('style', 'border-bottom-left-radius: 5px; border-top-left-radius: 5px;')
+            // wordInfo.dom.firstChild.setAttribute('style', 'border-bottom-left-radius: 5px; border-top-left-radius: 5px;')
         }
         if (ind == selected.length - 1) {
-            wordInfo.dom.firstChild.setAttribute('style', wordInfo.dom.firstChild.getAttribute('style') + ' border-bottom-right-radius: 5px; border-top-right-radius: 5px;')
+            // wordInfo.dom.firstChild.setAttribute('style', wordInfo.dom.firstChild.getAttribute('style') + ' border-bottom-right-radius: 5px; border-top-right-radius: 5px;')
         }
     })
 
@@ -297,7 +297,7 @@ const saveAndNext = async () => {
 var saveTag = (label) => {
     selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
     colIndex = colIndex+1 < cols.length ? colIndex+1 : 1
-    if (selectedIndexes.length !== 0) {
+    if (selectedIndexes.length !== 0 && !tags.find(t => t.label == label && t.words.join('') == selectedIndexes.join(''))) {
         let ralation_ = null
         if(active_menu == 'relation'){
             if(!tags.length ||  tags[tags.length - 1].relation !== 'start'){
@@ -310,6 +310,7 @@ var saveTag = (label) => {
                 colIndex = colIndex - 1 > 0 ? colIndex - 1 : cols.length - 1
             }
         }
+
         tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes, relation: ralation_ }) 
     }
 
