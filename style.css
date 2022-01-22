@@ -468,3 +468,14 @@ canvas{
 .disabled{
     opacity: .3;
 }
+.g-signin2{
+    margin-right: calc(var(--unit-size) + 5px);
+    position: absolute;
+    right: 0;
+    top: 4px;
+}
+.g-signin2 .abcRioButton{
+    box-shadow: none;
+    background: #eeeae7;
+    border-radius: 4px;
+}
