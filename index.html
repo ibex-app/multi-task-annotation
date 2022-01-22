@@ -19,9 +19,14 @@
         <!-- <span></span> 
         <span> - </span>  -->
         <!-- <span class="save undo" ><i class="fas fa-undo"></i> -->
-            <span class="save undo" onclick="toggleFullScreen()"><i class="fas fa-expand-arrows-alt"></i></span>
+            <span class="save full-scr" onclick="toggleFullScreen()"><i class="fas fa-expand-arrows-alt"></i></span>
+            <span class="save undo" onclick="undo()"><i class="fas fa-undo"></i></span>
+
         <!-- <span>35 / 1753 / 4675</span>  -->
-        <span class="save" onclick="saveAndNext()" ><i class="fas fa-save"></i></apan>
+        
+        <span class="save auth" onclick="toggleAuth()" ><i class="fas fa-user"></i></span>
+
+        <span class="save" onclick="saveAndNext()" ><i class="fas fa-save"></i></span>
     </div>
     <div class="sent">
         <div class="scrolling">
@@ -31,44 +36,47 @@
     </div>
     
     <div class="bottom-line">
-        <span onclick="prev()" class="prev"><i class="fas fa-arrow-left"></i></span>
-        <span onclick="next()" class="next"><i class="fas fa-arrow-right"></i></span>
+        <span class="prev disabled"><i class="fas fa-arrow-left"></i></span>
+        <span class="next disabled"><i class="fas fa-arrow-right"></i></span>
         <span class="label-title" >Sentiment</span> 
     </div>
 
 </body>
 <script type="text/javascript" src="js.js"></script>
+
 <!-- 
     TODOS:
 
-return words as token arrays from API
+    
+    
+    ++select all
+    ++relation sith two finger touch - how to scroll?
+    ++change titles at the tags header
+    +++Small circle at the end of line
+    +++Line width as relations
+    +++Minimise Fontaine and same everywhere
+    +++Tags to flat squares with separating lines
+    ++Toggle if same text and tag is selected, and toggle label button
+    ++Undo/Remove annotation
+    ++Dissable next and prev, at the end / when nothing selected / when on relation tab
+    
+    
+    ??Dissable selection when scrolling with double touch 
+    
+    
+    
+    ??Color code classes - tag button color - matching colors for line and tag button
+    
+    ??Add menu for label groups - ner, relations, sentiment, topic'
+    
+    Scrollbar is missing
+    Login Google authentication
 
-toggle tag button selected if same text is selected
-
-++select all
-
-++relation sith two finger touch - how to scroll?
-
-++change titles at the tags header
-
-
-+++Small circle at the end of line
-Color code classes - tag button color - matching colors for line and tag button
-+++Line width as relations
-Dissable meet and prev
-Label group menu items
-Scrollbar circle
-Dissable select when two finger scrolling
-
-+++Minimise Fontaine and same everywhere
-+++Tags to flat squares with separating lines
-
-Undo
-Api call
-Login Google authentication
-
-DBfor annotations
-Api endpoint
+    Api call
+    
+    return words as token arrays from API
+    DBfor annotations
+    Api endpoint
 
 -->
 </html>
