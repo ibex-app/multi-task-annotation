@@ -1,6 +1,9 @@
 var colIndex = 1
 var cols = ["black", "#bf501f", "#f59c34", "#89a7c6", "#7bc597", "#8d639a", "#8d639a", "#e4a774", "#828687", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick"]
 
+const getTagColor = tag => {
+    return cols[tag.colorIndex]
+}
 
 
 var partOfSpeechMode = false
@@ -25,10 +28,10 @@ var highlight = () => {
         wordInfo.dom.classList.add('selected')
 
         if (ind == 0) {
-            // wordInfo.dom.firstChild.setAttribute('style', 'border-bottom-left-radius: 5px; border-top-left-radius: 5px;')
+            wordInfo.dom.firstChild.setAttribute('style', 'border-bottom-left-radius: 5px; border-top-left-radius: 5px;')
         }
         if (ind == selected.length - 1) {
-            // wordInfo.dom.firstChild.setAttribute('style', wordInfo.dom.firstChild.getAttribute('style') + ' border-bottom-right-radius: 5px; border-top-right-radius: 5px;')
+            wordInfo.dom.firstChild.setAttribute('style', wordInfo.dom.firstChild.getAttribute('style') + ' border-bottom-right-radius: 5px; border-top-right-radius: 5px;')
         }
     })
 
@@ -43,7 +46,10 @@ var highlight = () => {
 
 
 var onmousedown_ = (e) => {
-    if (e.touches && e.touches.length === 2) return
+    if (e.touches && e.touches.length === 2) {
+        dehighlight_();
+        return
+    }
     // if (!cntrlIsPressed) 
     // words.forEach(wordInfo => wordInfo.selecting = false)
     startSelection = true
@@ -57,7 +63,10 @@ var onmousedown_ = (e) => {
     // e.preventDefault()
 }
 var ontouchmove_ = (e) => {
-    if (e.touches && e.touches.length === 2) return
+    if (e.touches && e.touches.length === 2) {s
+        dehighlight_();
+        return
+    }
     var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
     var touch = evt.touches[0] || evt.changedTouches[0];
     el = document.elementFromPoint(touch.pageX, touch.pageY)
@@ -67,7 +76,10 @@ var ontouchmove_ = (e) => {
 }
 
 var onmouseenter_ = (e, currentTarget) => {
-    if (e.touches && e.touches.length === 2) return
+    if (e.touches && e.touches.length === 2) {
+        dehighlight_();
+        return
+    }
     if (!startSelection) return
     currentTarget = currentTarget || e.currentTarget
     endIndex = parseInt(currentTarget.getAttribute('index'))
@@ -89,15 +101,17 @@ var parrentCont = document.querySelector('div.sent')
 var cont = document.querySelector('div.sent .scrolling')
 
 const dehightlight = (e) => {
-
-    if (e.target.tagName == 'CANVAS') {
-        startIndex = -1
-        endIndex = -1
-
-        highlight()
+    if (e.target.tagName == 'CANVAS' || e.target.className == 'sent') {
+        dehightlight_()
     }
 }
 
+const dehightlight_ = () => {
+    startIndex = -1
+    endIndex = -1
+
+    highlight()
+}
 
 var cntrlIsPressed = false;
 
@@ -112,6 +126,7 @@ var max_layers
 
 cont.ontouchstart = (event) => {
     if (event.touches.length === 2) {
+        dehightlight_()
         event.preventDefault()
         lastTouchY = event.touches[0].clientY;
     }
@@ -119,6 +134,7 @@ cont.ontouchstart = (event) => {
 
 cont.ontouchmove = (event) => {
     if (event.touches.length === 2) {
+        dehightlight_()
         event.preventDefault()
 
         const delta = lastTouchY - event.touches[0].clientY;
@@ -177,11 +193,14 @@ var orderTagsAndDrowUnderlines = () => {
     let allTaggedWords = [].concat.apply([], tags.map(tag => tag.words))
 
     countOfWords = allTaggedWords.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-
-    max_layers = Array.from(countOfWords, ([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value)[0].value
+    let countOfWordsSorted = Array.from(countOfWords, ([name, value]) => ({ name, value }))
+    max_layers = countOfWordsSorted.length ? countOfWordsSorted.sort((a, b) => b.value - a.value)[0].value : 0
+    
+    
     words.forEach(wordInfo => {
         wordInfo.occupiedLayers = []
-        wordInfo.dom.innerHTML = '<span>' + wordInfo.text + '</span>'
+        let wordSpanBorderStyle = wordInfo.dom.firstChild.getAttribute('style')
+        wordInfo.dom.innerHTML = `<span ${wordSpanBorderStyle ? 'style="' + wordSpanBorderStyle + '" ' : ''}>${wordInfo.text}</span>`
         for (let layer_index = 0; layer_index < max_layers; layer_index++) {
             let span = document.createElement('span')
             wordInfo.dom.appendChild(span)
@@ -208,26 +227,25 @@ var orderTagsAndDrowUnderlines = () => {
                 wordInfo.dom.appendChild(span)
                 avaliableLayer++
             }
-
+            let wordSpan = wordInfo.dom.querySelector('span:nth-child(1)')
+            let colorForTag = getTagColor(tag)
             span = wordInfo.dom.querySelector('span:nth-child(' + (avaliableLayer + 1) + ')')
-            span.style.borderBottom = '3px solid ' + cols[tag.colorIndex]
-            span.style.background = cols[tag.colorIndex]
+            span.style.borderBottom = '3px solid ' + colorForTag
+            span.style.background = colorForTag
+            
             if (wordInd == 0) {
                 if(tag.relation == 'start'){
                     startTagForLine = span
                 }
                 if(tag.relation == 'end'){
-                    relations.push([startTagForLine, span, cols[tag.colorIndex]])
+                    relations.push([startTagForLine, span, colorForTag])
                 }
-               
-                // if(index == tags.length - 1 && labelCategory == 'relation' && !startElement) {
-                //     startElement = span
-                // }
-                span.classList.add('first')
-                // span.innerHTML = '<i style="color:' + cols[tag.colorIndex] + '">Entity # 12</i>'
+                
+                span.classList.add('start-point')
                 span.innerHTML = '<i style="">' + tag.label + '</i>'
-            }
-            if (wordInd == tagWords.length - 1) span.classList.add('last')
+            } else if (wordInd == tagWords.length - 1) {
+                span.classList.add('end-point')
+            } 
             wordInfo.occupiedLayers.push(avaliableLayer)
         })
     })
@@ -296,8 +314,31 @@ const saveAndNext = async () => {
 
 var saveTag = (label) => {
     selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
-    colIndex = colIndex+1 < cols.length ? colIndex+1 : 1
-    if (selectedIndexes.length !== 0 && !tags.find(t => t.label == label && t.words.join('') == selectedIndexes.join(''))) {
+    
+    let dublicateTag
+    let dublicateTagIndex
+    tags.forEach((tagInfo, tagIndex) => {
+        if(tagInfo.label == label && tagInfo.words.join('') == selectedIndexes.join('')){
+            dublicateTagIndex = tagIndex
+            dublicateTag = tagInfo
+        }
+    })
+    if (dublicateTag){
+        tags.splice(dublicateTagIndex, 1);
+        colIndex = colIndex - 1 > 0 ? colIndex - 1 : cols.length - 1
+        
+        if(active_menu == 'relation'){
+            if(!tags.length){
+                setMenu('relation')
+            } else if (tags.length && !(tags[tags.length - 1].labelGroup == 'relation' && tags[tags.length - 1].relation != 'start')){
+                setMenu('relation')    
+
+            }
+        }
+    }
+
+    if (selectedIndexes.length !== 0 && !dublicateTag) {
+        colIndex = colIndex + 1 < cols.length ? colIndex+1 : 1  
         let ralation_ = null
         if(active_menu == 'relation'){
             if(!tags.length ||  tags[tags.length - 1].relation !== 'start'){
@@ -311,7 +352,7 @@ var saveTag = (label) => {
             }
         }
 
-        tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes, relation: ralation_ }) 
+        tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes, relation: ralation_, labelGrup: active_menu }) 
     }
 
     tags.forEach(tag => tag.drown = false)
@@ -328,6 +369,7 @@ var saveTag = (label) => {
     tagId++
 }
 
+
 const drawRelations = () => {
     canvas.setAttribute('width', canvas.offsetWidth);
     canvas.setAttribute('height', canvas.offsetHeight);
@@ -342,28 +384,52 @@ var sentences = [
     { id: 1, text: "When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language. When you need to annotate a word or a phrase, you'll use Tags to say what the annotation is. Examples of tags are Person, Location, Object, Noun etc. You can use any tags in any language." }
 ]
 
+const disableNextAndPrev = () => {
+    let curentMenuIndex = labels.map(l => l.name).indexOf(active_menu)
+    if (curentMenuIndex + 1 >= labels.length){
+        nextBtn.removeEventListener("click", next)
+        nextBtn.classList.add('disabled')
+    } else {
+        nextBtn.addEventListener("click", next)
+        nextBtn.classList.remove('disabled')
+    }
+
+    if (curentMenuIndex - 1 <= 0){
+        prevBtn.removeEventListener("click", prev)
+        prevBtn.classList.add('disabled')
+    } else {
+        prevBtn.addEventListener("click", prev)
+        prevBtn.classList.remove('disabled')
+    }
+}
+
 var next = () => {
     let menuLabels = labels.map(l => l.name)
     let curentMenuIndex = menuLabels.indexOf(active_menu)
 
     if (curentMenuIndex + 1 < all_menus.length) {
-
         active_menu = menuLabels[curentMenuIndex + 1]
         setMenu(active_menu)
     }
+    
+    disableNextAndPrev()
 
     all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
+
+    // if()
 }
 
 var prev = () => {
     let menuLabels = labels.map(l => l.name)
     let curentMenuIndex = menuLabels.indexOf(active_menu)
 
-    if (curentMenuIndex - 1 >= 0) {
+    if (curentMenuIndex - 1 >= 1) {
         active_menu = menuLabels[curentMenuIndex - 1]
         setMenu(active_menu)
     }
-
+    disableNextAndPrev()
+    
+    
     all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == active_menu ? 'show' : ''))
 }
 
@@ -377,103 +443,140 @@ const selectAll = () => {
     // hideemptylines()
 }
 
+const nextBtn = document.querySelector('.next')
+const prevBtn = document.querySelector('.prev')
+nextBtn.addEventListener("click", next)
+prevBtn.addEventListener("click", prev)
+
 const setMenu = (menuName, label) => {
     active_menu = menuName
     
-    
-
     all_menus.forEach(menu => menu.setAttribute('class', menu.getAttribute('ind') == menuName ? 'show' : ''))
     document.querySelector('.label-title').innerText = menuName.replace('-', ' ')
+    
     if(label) {
+        
         all_menus
             .find(menu => menu.getAttribute('ind') == menuName)
             .querySelectorAll('span')
             .forEach(span => span.setAttribute('class', span.innerText == label ? '' : 'hide'))
+
+        nextBtn.removeEventListener("click", next)
+        nextBtn.classList.add('disabled')
+        prevBtn.removeEventListener("click", prev)
+        prevBtn.classList.add('disabled')
+
+    } else if (menuName == 'nothing-selected'){
+        nextBtn.removeEventListener("click", next)
+        nextBtn.classList.add('disabled')
+        prevBtn.removeEventListener("click", prev)
+        prevBtn.classList.add('disabled')
     } else {
         all_menus
             .find(menu => menu.getAttribute('ind') == menuName)
             .querySelectorAll('span')
             .forEach(span => span.setAttribute('class', ''))
-    }   
+        
+        nextBtn.addEventListener("click", next)
+        nextBtn.classList.remove('disabled')
+        prevBtn.addEventListener("click", prev)
+        prevBtn.classList.remove('disabled')
+    }
+    disableNextAndPrev()
+
+
 }
-// document.getElementById('next').addEventListener("click", next)
-// document.getElementById('prev').addEventListener("click", prev)
+
 
 const labels = [
     {
         name: 'nothing-selected',
         values: [
-            { id: 1, text: "Select all" },
+            { id: 1, text: "Select all" , value: "Select all" },
         ]
     },
     {
         name: 'topic',
         values: [
-            { id: 1, text: "Anti west" },
-            { id: 2, text: "Pro-kremlian" },
-            { id: 3, text: "Hate speech" },
-            { id: 1, text: "Border" },
-            { id: 2, text: "Prisoners" },
-            { id: 3, text: "Military" },
-            { id: 3, text: "Terorism" },
-            { id: 3, text: "Gender" },
-            { id: 3, text: "Anti LGBTQ" },
+            { id: 1, text: "Anti west" , value: "Anti west" },
+            { id: 2, text: "Pro-kremlian" , value: "Pro-kremlian" },
+            { id: 3, text: "Hate speech" , value: "Hate speech" },
+            { id: 1, text: "Border" , value: "Border" },
+            { id: 2, text: "Prisoners" , value: "Prisoners" },
+            { id: 3, text: "Military" , value: "Military" },
+            { id: 3, text: "Terorism" , value: "Terorism" },
+            { id: 3, text: "Gender" , value: "Gender" },
+            { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
         ]
     },
     {
         name: 'named-entity',
         values: [
-// { id: 6, text: "CARDINAL" },
-{ id: 6, text: "Date" },
-{ id: 6, text: "Event" },
-{ id: 6, text: "Fac" },
-{ id: 6, text: "Gpe" },
-{ id: 6, text: "Language" },
-{ id: 6, text: "Law" },
-{ id: 6, text: "Loc" },
-{ id: 6, text: "money" },
-// { id: 6, text: "NORP" },
-// { id: 6, text: "ORDINAL" },
-{ id: 6, text: "Org" },
-// { id: 6, text: "PERCENT" },
-{ id: 6, text: "Person" },
-{ id: 6, text: "Product" },
-{ id: 6, text: "Quantity" },
-{ id: 6, text: "Time" },
-// { id: 6, text: "WORK_OF_ART" },
-            // { id: 6, text: "Person" },
-            // { id: 7, text: "Organization" },
-            // { id: 8, text: "Event" },
-            // { id: 9, text: "Location" },
-            { id: 10, text: "Target" },
-            // { id: 6, text: "Person" },
-            // { id: 7, text: "Organization" },
-            // { id: 8, text: "Event" },
-            // { id: 9, text: "Location" },
-            // { id: 10, text: "Hate speech target" },
+        // { id: 6, text: "CARDINAL" , value: "CARDINAL" },
+            { id: 6, text: "Date" , value: "Date" },
+            { id: 6, text: "Event" , value: "Event" },
+            { id: 6, text: "Fac" , value: "Fac" },
+            { id: 6, text: "Gpe" , value: "Gpe" },
+            { id: 6, text: "Language" , value: "Language" },
+            { id: 6, text: "Law" , value: "Law" },
+            { id: 6, text: "Loc" , value: "Loc" },
+            { id: 6, text: "money" , value: "money" },
+            // { id: 6, text: "NORP" , value: "NORP" },
+            // { id: 6, text: "ORDINAL" , value: "ORDINAL" },
+            { id: 6, text: "Org" , value: "Org" },
+            // { id: 6, text: "PERCENT" , value: "PERCENT" },
+            { id: 6, text: "Person" , value: "Person" },
+            { id: 6, text: "Product" , value: "Product" },
+            { id: 6, text: "Quantity" , value: "Quantity" },
+            { id: 6, text: "Time" , value: "Time" },
+// { id: 6, text: "WORK_OF_ART" , value: "WORK_OF_ART" },
+            // { id: 6, text: "Person" , value: "Person" },
+            // { id: 7, text: "Organization" , value: "Organization" },
+            // { id: 8, text: "Event" , value: "Event" },
+            // { id: 9, text: "Location" , value: "Location" },
+            { id: 10, text: "Target" , value: "Target" },
+            // { id: 6, text: "Person" , value: "Person" },
+            // { id: 7, text: "Organization" , value: "Organization" },
+            // { id: 8, text: "Event" , value: "Event" },
+            // { id: 9, text: "Location" , value: "Location" },
+            // { id: 10, text: "Hate speech target" , value: "Hate speech target" },
         ]
     },
     {
         name: 'sentiment',
         values: [
-            { id: 1, text: "Negative" },
-            { id: 2, text: "Mostly negative" },
-            { id: 3, text: "Neutral" },
-            { id: 2, text: "Mostly positive" },
-            { id: 3, text: "Positive" },
+            // { id: 1, text: "Negative" , value: "Negative" },
+            // { id: 2, text: "Mostly negative" , value: "Mostly negative" },
+            // { id: 3, text: "Neutral" , value: "Neutral" },
+            // { id: 2, text: "Mostly positive" , value: "Mostly positive" },
+            // { id: 3, text: "Positive" , value: "Positive" },
+            { id: 1, text: '<i class="far fa-angry"></i>' , value: 'Negative' },
+            { id: 2, text: '<i class="far fa-frown"></i>' , value: 'Mostly negative' },
+            { id: 3, text: '<i class="far fa-meh-blank"></i>' , value: 'Neutral' },
+            { id: 2, text: '<i class="far fa-smile"></i>' , value: 'Mostly positive' },
+            { id: 3, text: '<i class="far fa-grin-hearts"></i>' , value: 'Positive' },
         ]
     }, {
         name: 'relation',
         values: [
-            { id: 1, text: "Cause-Effect" },
-            { id: 1, text: "Component-Whole" },
-            { id: 1, text: "Content-Container" },
-            { id: 1, text: "Entity-Destination" },
-            { id: 1, text: "Entity-Origin" },
-            { id: 1, text: "Instrument-Agency" },
-            { id: 1, text: "Member-Collection" },
-            { id: 1, text: "Message-Topic" },
-            { id: 1, text: "Product-Producer" }
+            // { id: 1, text: "Cause-Effect" , value: "Cause-Effect" },
+            // { id: 1, text: "Component-Whole" , value: "Component-Whole" },
+            // { id: 1, text: "Content-Container" , value: "Content-Container" },
+            // { id: 1, text: "Entity-Destination" , value: "Entity-Destination" },
+            // { id: 1, text: "Entity-Origin" , value: "Entity-Origin" },
+            // { id: 1, text: "Instrument-Agency" , value: "Instrument-Agency" },
+            // { id: 1, text: "Member-Collection" , value: "Member-Collection" },
+            // { id: 1, text: "Message-Topic" , value: "Message-Topic" },
+            // { id: 1, text: "Product-Producer", value: "Product-Producer" }
+            { id: 1, text: "Cause" , value: "Cause" },
+            { id: 1, text: "Component" , value: "Component" },
+            { id: 1, text: "Content" , value: "Content" },
+            { id: 1, text: "Destination" , value: "Destination" },
+            { id: 1, text: "Origin" , value: "Origin" },
+            { id: 1, text: "Agency" , value: "Agency" },
+            { id: 1, text: "Member" , value: "Member" },
+            { id: 1, text: "Message" , value: "Message" },
+            { id: 1, text: "Producer", value: "Producer" }
         ]
     },
 
@@ -537,18 +640,20 @@ labels.forEach((labelGroup, ind) => {
 
     labelGroup.values.forEach(label => {
         let labelCont = document.createElement('span')
-        labelCont.setAttribute('data-id', label.id)
+        labelCont.setAttribute('data-id', label.value)
         labelCont.innerHTML = label.text
         labelGroupCont.appendChild(labelCont)
 
         labelCont.onclick = (e) => {
-            console.log(e.target.innerText)
+            // console.log(e.target.innerText)
             if (e.target.innerText == 'Select all') {
                 selectAll()
                 return
             }
             if (partOfSpeechMode) {
-                saveTag(e.target.innerText)
+                
+
+                saveTag(labelCont.getAttribute('data-id'))
                 return
             }
             setMenu('nothing-selected')
@@ -572,6 +677,11 @@ const ctx = canvas.getContext('2d');
 canvas.ontouchend = dehightlight
 canvas.onmouseup = dehightlight
 canvas.onclick = dehightlight
+
+parrentCont.ontouchend = dehightlight
+parrentCont.onmouseup = dehightlight
+parrentCont.onclick = dehightlight
+
 // canvas.onclick = console.log
 
 let elll1, elll2
@@ -579,7 +689,7 @@ let elll1, elll2
 function drawRelation(el1, el2, color) {
     elll1 = el1 
     elll2 = el2
-    console.log(el1, el2, color)
+    // console.log(el1, el2, color)
     
 
     ctx.strokeStyle = color //'gray';//cols[2];
@@ -620,10 +730,7 @@ function drawRelation(el1, el2, color) {
     ctx.stroke();
 
 }
-function draw() {
-   
 
-}
 function toggleFullScreen() {
     var doc = window.document;
     var docEl = doc.documentElement;
@@ -637,5 +744,20 @@ function toggleFullScreen() {
     else {
       cancelFullScreen.call(doc);
     }
-  }
+}
   
+const undo  = () => {
+    if(tags && tags.length){
+        let lastTag = tags[tags.length - 1]
+        colIndex =  lastTag.colorIndex
+        if(lastTag.labelGrup == 'relation' && lastTag.relation == 'end'){
+            setMenu('relation', lastTag.label)
+        } else {
+            setMenu(lastTag.labelGrup)
+        }
+        tags.pop()
+        orderTagsAndDrowUnderlines()
+        hideemptylines()
+        drawRelations()
+    }
+}
