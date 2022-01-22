@@ -4,7 +4,7 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-
+    <title>ibex - multi task annotatin</title>
     <meta name="viewport" content="height=device-height, 
                       width=device-width, initial-scale=1.0, 
                       minimum-scale=1.0, maximum-scale=1.0, 
@@ -12,6 +12,7 @@
     <link  media="all" rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <meta name="google-signin-client_id" content="257929005423-h3kssr5r62q36nljbfeluprlp0e8c768.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -23,8 +24,8 @@
             <span class="save undo" onclick="undo()"><i class="fas fa-undo"></i></span>
 
         <!-- <span>35 / 1753 / 4675</span>  -->
-        
-        <span class="save auth" onclick="toggleAuth()" ><i class="fas fa-user"></i></span>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <!-- <span class="save auth" onclick="toggleAuth()" ><i class="fas fa-user"></i></span> -->
 
         <span class="save" onclick="saveAndNext()" ><i class="fas fa-save"></i></span>
     </div>
@@ -40,8 +41,19 @@
         <span class="next disabled"><i class="fas fa-arrow-right"></i></span>
         <span class="label-title" >Sentiment</span> 
     </div>
-
+    <!-- <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
+      }
+    </script> -->
+    
 </body>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 <script type="text/javascript" src="js.js"></script>
 
 <!-- 
