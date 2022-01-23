@@ -250,7 +250,8 @@ var orderTagsAndDrowUnderlines = () => {
             wordInfo.occupiedLayers.push(avaliableLayer)
         })
     })
-             
+    hideemptylines()
+    drawRelations()
     return
 }
 
@@ -365,8 +366,7 @@ var saveTag = (label) => {
     // dehightlight({target:{className: 'sent'}})
     orderTagsAndDrowUnderlines()
 
-    hideemptylines()
-    drawRelations()
+    
     tagId++
 }
 
@@ -773,6 +773,4 @@ function onSignIn(googleUser) {
   
 
 
-window.addEventListener('resize', () => {
-    
-}, true);
+window.addEventListener('resize', orderTagsAndDrowUnderlines);
