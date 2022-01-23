@@ -505,9 +505,9 @@ const labels = [
             { id: 1, text: "Border" , value: "Border" },
             { id: 2, text: "Prisoners" , value: "Prisoners" },
             { id: 3, text: "Military" , value: "Military" },
+            { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
             { id: 3, text: "Terorism" , value: "Terorism" },
             { id: 3, text: "Gender" , value: "Gender" },
-            { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
         ]
     },
     {
@@ -771,3 +771,8 @@ function onSignIn(googleUser) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
   
+
+
+window.addEventListener('resize', () => {
+    
+}, true);
