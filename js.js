@@ -243,7 +243,8 @@ var orderTagsAndDrowUnderlines = () => {
                 
                 span.classList.add('start-point')
                 span.innerHTML = '<i style="">' + tag.label + '</i>'
-            } else if (wordInd == tagWords.length - 1) {
+            }
+            if (wordInd == tagWords.length - 1) {
                 span.classList.add('end-point')
             } 
             wordInfo.occupiedLayers.push(avaliableLayer)

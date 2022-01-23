@@ -77,7 +77,7 @@ background: #888;
     flex-direction: column;
     /* padding: 2px 4px; */
     position: relative;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     cursor: pointer;
     font-size: 13pt;
 }
@@ -110,6 +110,7 @@ background: #888;
     padding-bottom: 1px;
     padding-left: 3.5px;
     padding-right: 3.5px;
+    line-height: 13pt;
 }
 
 .word span:nth-child(2){
@@ -403,7 +404,7 @@ button {
 
 
 .header > span.save {
-    right: 0;
+    left: calc(calc(var(--unit-size) * 2) + 2px);
     position: absolute;
     top: 0;
     background: #7bc597;
@@ -469,13 +470,24 @@ canvas{
     opacity: .3;
 }
 .g-signin2{
-    margin-right: calc(var(--unit-size) + 5px);
+    /* margin-right: calc(var(--unit-size) + 5px); */
     position: absolute;
-    right: 0;
+    right: 6px;
     top: 4px;
 }
 .g-signin2 .abcRioButton{
     box-shadow: none;
     background: #eeeae7;
     border-radius: 4px;
+}
+.abcRioButtonContents{
+    display: none;
+}
+
+.abcRioButton.abcRioButtonLightBlue{
+    width: auto !important;
+}
+
+.abcRioButton.abcRioButtonLightBlue     .abcRioButtonContentWrapper{
+    width: auto;
 }
