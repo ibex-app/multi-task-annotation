@@ -269,7 +269,7 @@ background: #888;
     transition: ease-in 0.3s;
 }
 
-* {
+.sent * {
     touch-action: none;
 }
 
@@ -319,10 +319,9 @@ button {
 .bottom-line > div{
     width: 100%;
     display: none;
-    /* padding: 3px 4px; */
     margin-bottom: var(--unit-size);
     min-height: var(--unit-size);
-    padding: 0 8px;
+    padding: 4px 8px 12px 8px;
     overflow-x: auto;
 }
 .bottom-line > div.show{
@@ -378,11 +377,11 @@ button {
     justify-content: center;
     align-items: center;
     flex-grow: 2;
-    font-size: 11pt;
+    font-size: 10pt;
 }
 .bottom-line > div > span{
     width: auto;
-    padding: 0px 4px;
+    padding: 0px 10px;
     background: #eeeae7; 
     /* #; */
     /* color: whitesmoke; */
