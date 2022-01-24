@@ -339,7 +339,7 @@ button {
     position: absolute;
     bottom: 0;
     width: var(--unit-size);
-    color:whitesmoke
+    /* color:whitesmoke */
     
 }
 .bottom-line > span.next{
@@ -350,7 +350,7 @@ button {
     bottom: 0;
     position: absolute;
     width: var(--unit-size);
-    color:whitesmoke
+    /* color:whitesmoke */
     
 }
 .bottom-line > span.label-title {
@@ -395,7 +395,7 @@ button {
     padding: 8px;
     cursor: pointer;
     display: inline-block;
-    color: whitesmoke;
+    /* color: whitesmoke; */
     height: 42px;
     display: inline-flex;
     justify-content: center;
