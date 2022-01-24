@@ -285,6 +285,7 @@ background: #888;
     box-shadow: 0 0 0px 4px rgb(123, 197, 151);
     color: white;
     text-shadow: none;
+    transition: all .1s;
 }
 
 /* .sent > .scrolling > .selected span:first-child{
@@ -342,7 +343,7 @@ button {
     /* color:whitesmoke */
     
 }
-.bottom-line > span.next{
+.bottom-line > span.next{transition: all .1s;
     /* background: #8d639a; */
     /* margin-right: 12px; */
     left: auto;
