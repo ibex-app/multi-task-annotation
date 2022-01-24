@@ -36,12 +36,30 @@ var highlight = () => {
     })
 
     partOfSpeechMode = selected.length > 0
-
+    highlightMenuLabel()
     if (active_menu == 'relation') return
     if (selected.length == 0) setMenu('nothing-selected')
     if (selected.length > 0 & selected.length < 3) setMenu('named-entity')
     if (selected.length > 3) setMenu('topic')
     // draw();
+}
+
+const highlightMenuLabel = () => {
+    selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
+
+    let activatedTags = []
+    let activatedTagIndexes = []
+    tags.forEach((tagInfo, tagIndex) => {
+        if(tagInfo.words.join('') == selectedIndexes.join('')){
+            activatedTagIndexes.push(tagIndex)
+            activatedTags.push(tagInfo)
+        }
+    })
+    document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled'))
+    
+    activatedTags.forEach(activatedTag => {
+        document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled')
+    })
 }
 
 var mylatesttap;
@@ -277,6 +295,7 @@ var orderTagsAndDrowUnderlines = () => {
     })
     hideemptylines()
     drawRelations()
+    highlightMenuLabel()
     return
 }
 
