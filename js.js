@@ -44,17 +44,40 @@ var highlight = () => {
     // draw();
 }
 
+var mylatesttap;
 
 var onmousedown_ = (e) => {
     if (e.touches && e.touches.length === 2) {
         dehighlight_();
         return
     }
+    var now = new Date().getTime();
+    var timesince = now - mylatesttap;
+    startSelection = true
+    if((timesince < 600) && (timesince > 0)){
+        startIndex = parseInt(e.currentTarget.getAttribute('index'))
+        let latestDot, nextDot
+        words.forEach((wordInfo, index) => {
+            if(wordInfo.text.indexOf('.') > 0){
+                if(index <= startIndex) {
+                    latestDot = index
+                }
+                if(index >= startIndex && !nextDot){
+                    nextDot = index
+                }
+            }
+        })
+        startIndex = (latestDot + 1) || 0
+        endIndex = nextDot || (words.length - 1)
+    } else {
+        startIndex = parseInt(e.currentTarget.getAttribute('index'))
+        endIndex = startIndex
+    }
+    mylatesttap = new Date().getTime();
+ 
     // if (!cntrlIsPressed) 
     // words.forEach(wordInfo => wordInfo.selecting = false)
-    startSelection = true
-    startIndex = parseInt(e.currentTarget.getAttribute('index'))
-    endIndex = startIndex
+    
     // let targetIndex = parseInt(e.currentTarget.getAttribute('index'))
     // let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
     // startToken = theWord
@@ -162,6 +185,8 @@ const display_sent = (text) => {
         span.className = 'word'
         span.innerHTML = '<span>' + wordInfo.text + '</span>'
         cont.appendChild(span)
+
+        // span.ondouble 
 
         span.onmousedown = onmousedown_
         span.onmouseenter = onmouseenter
