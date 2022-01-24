@@ -323,10 +323,11 @@ button {
     margin-bottom: var(--unit-size);
     min-height: var(--unit-size);
     padding: 0 8px;
+    overflow-x: auto;
 }
 .bottom-line > div.show{
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 .bottom-line > span.prev, .bottom-line > span.next, .bottom-line > span.label-title {
     height:var(--unit-size);
