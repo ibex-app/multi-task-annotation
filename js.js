@@ -69,23 +69,27 @@ var onmousedown_ = (e) => {
         dehighlight_();
         return
     }
+    
     var now = new Date().getTime();
     var timesince = now - mylatesttap;
     startSelection = true
+    
     if((timesince < 600) && (timesince > 0)){
-        startIndex = parseInt(e.currentTarget.getAttribute('index'))
+        tapedIndex = parseInt(e.currentTarget.getAttribute('index'))
         let latestDot, nextDot
         words.forEach((wordInfo, index) => {
             if(wordInfo.text.indexOf('.') > 0){
-                if(index <= startIndex) {
+                // console.log(index, tapedIndex)
+                if(index < tapedIndex) {
                     latestDot = index
                 }
-                if(index >= startIndex && !nextDot){
+                if(index >= tapedIndex && !nextDot){
                     nextDot = index
                 }
             }
         })
-        startIndex = (latestDot + 1) || 0
+        // console.log(latestDot, nextDot)
+        startIndex = latestDot ? latestDot + 1 : 0
         endIndex = nextDot || (words.length - 1)
     } else {
         startIndex = parseInt(e.currentTarget.getAttribute('index'))
@@ -206,7 +210,7 @@ const display_sent = (text) => {
 
         // span.ondouble 
 
-        span.onmousedown = onmousedown_
+        // span.onmousedown = onmousedown_
         span.onmouseenter = onmouseenter
 
         span.addEventListener("pointerenter", onmouseenter_)
