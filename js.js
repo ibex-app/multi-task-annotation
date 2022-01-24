@@ -264,11 +264,13 @@ var hideemptylines = () => {
     contWidth = style.getPropertyValue("width");
     contWidth = Number(contWidth.replace('px', ''))
 
-    // contWidth = cont.offsetWidth
+    contWidth = cont.offsetWidth
     lines = [[]]
     offset = 0
     words.forEach(wordInfo => {
-        // console.log(offset, wordInfo.dom.offsetWidth , contWidth)
+        if(lines.length == 2){
+            // console.log(offset, wordInfo.dom.offsetWidth , contWidth)
+        }
         if (offset + wordInfo.dom.offsetWidth < contWidth - 20) {//subtract padding
             lines[lines.length - 1].push(wordInfo)
             offset += wordInfo.dom.offsetWidth
@@ -455,8 +457,8 @@ const selectAll = () => {
 
 const nextBtn = document.querySelector('.next')
 const prevBtn = document.querySelector('.prev')
-nextBtn.addEventListener("click", next)
-prevBtn.addEventListener("click", prev)
+// nextBtn.addEventListener("click", next)
+// prevBtn.addEventListener("click", prev)
 
 const setMenu = (menuName, label) => {
     active_menu = menuName
@@ -470,26 +472,26 @@ const setMenu = (menuName, label) => {
             .querySelectorAll('span')
             .forEach(span => span.setAttribute('class', span.innerText == label ? '' : 'hide'))
 
-        nextBtn.removeEventListener("click", next)
-        nextBtn.classList.add('disabled')
-        prevBtn.removeEventListener("click", prev)
-        prevBtn.classList.add('disabled')
+        // nextBtn.removeEventListener("click", next)
+        // nextBtn.classList.add('disabled')
+        // prevBtn.removeEventListener("click", prev)
+        // prevBtn.classList.add('disabled')
 
     } else if (menuName == 'nothing-selected'){
-        nextBtn.removeEventListener("click", next)
-        nextBtn.classList.add('disabled')
-        prevBtn.removeEventListener("click", prev)
-        prevBtn.classList.add('disabled')
+        // nextBtn.removeEventListener("click", next)
+        // nextBtn.classList.add('disabled')
+        // prevBtn.removeEventListener("click", prev)
+        // prevBtn.classList.add('disabled')
     } else {
         all_menus
             .find(menu => menu.getAttribute('ind') == menuName)
             .querySelectorAll('span')
             .forEach(span => span.setAttribute('class', ''))
         
-        nextBtn.addEventListener("click", next)
-        nextBtn.classList.remove('disabled')
-        prevBtn.addEventListener("click", prev)
-        prevBtn.classList.remove('disabled')
+        // nextBtn.addEventListener("click", next)
+        // nextBtn.classList.remove('disabled')
+        // prevBtn.addEventListener("click", prev)
+        // prevBtn.classList.remove('disabled')
     }
     disableNextAndPrev()
 
