@@ -340,7 +340,7 @@ button {
     position: absolute;
     bottom: 0;
     width: var(--unit-size);
-    /* color:whitesmoke */
+    color:#595959
     
 }
 .bottom-line > span.next{transition: all .1s;
@@ -351,7 +351,7 @@ button {
     bottom: 0;
     position: absolute;
     width: var(--unit-size);
-    /* color:whitesmoke */
+    color:#595959
     
 }
 .bottom-line > span.label-title {

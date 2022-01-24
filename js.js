@@ -387,6 +387,15 @@ var sentences = [
 
 const disableNextAndPrev = () => {
     let curentMenuIndex = labels.map(l => l.name).indexOf(active_menu)
+    if(active_menu == 'nothing-selected'){
+        nextBtn.removeEventListener("click", next)
+        nextBtn.classList.add('disabled')
+    
+        nextBtn.removeEventListener("click", next)
+        nextBtn.classList.add('disabled')
+        console.log('removing')
+        return
+    }
     if (curentMenuIndex + 1 >= labels.length){
         nextBtn.removeEventListener("click", next)
         nextBtn.classList.add('disabled')
@@ -456,7 +465,6 @@ const setMenu = (menuName, label) => {
     document.querySelector('.label-title').innerText = menuName.replace('-', ' ')
     
     if(label) {
-        
         all_menus
             .find(menu => menu.getAttribute('ind') == menuName)
             .querySelectorAll('span')
@@ -774,3 +782,5 @@ function onSignIn(googleUser) {
 
 
 window.addEventListener('resize', orderTagsAndDrowUnderlines);
+
+setMenu('nothing-selected')
