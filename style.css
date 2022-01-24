@@ -334,7 +334,7 @@ button {
     align-items:center;
 }
 .bottom-line > span.prev{
-    background: #8d639a;
+    /* background: #8d639a; */
     left: 0;
     position: absolute;
     bottom: 0;
@@ -343,7 +343,7 @@ button {
     
 }
 .bottom-line > span.next{
-    background: #8d639a;
+    /* background: #8d639a; */
     /* margin-right: 12px; */
     left: auto;
     right: 0px;
@@ -407,7 +407,7 @@ button {
     left: calc(calc(var(--unit-size) * 2) + 2px);
     position: absolute;
     top: 0;
-    background: #7bc597;
+    /* background: #7bc597; */
 }
 * {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -477,7 +477,7 @@ canvas{
 }
 .g-signin2 .abcRioButton{
     box-shadow: none;
-    background: #eeeae7;
+    /* background: #eeeae7; */
     border-radius: 4px;
 }
 .abcRioButtonContents{
