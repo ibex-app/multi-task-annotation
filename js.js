@@ -59,10 +59,11 @@ const highlightMenuLabel = () => {
     })
 
     document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled'))
-    
+    console.log(activatedTags)
     activatedTags.forEach(activatedTag => {
-        
+        console.log(document.querySelector(`span[data-id="${activatedTag.label}"]`))
         document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled')
+        // debugger
     })
 }
 
@@ -211,8 +212,6 @@ const display_sent = (text) => {
         span.className = 'word'
         span.innerHTML = '<span>' + wordInfo.text + '</span>'
         cont.appendChild(span)
-
-        // span.ondouble 
 
         // span.onmousedown = onmousedown_
         span.onmouseenter = onmouseenter
@@ -554,7 +553,7 @@ const setMenu = (menuName, label) => {
         all_menus
             .find(menu => menu.getAttribute('ind') == menuName)
             .querySelectorAll('span')
-            .forEach(span => span.setAttribute('class', ''))
+            .forEach(span => span.classList.remove('hide'))
         
         // nextBtn.addEventListener("click", next)
         // nextBtn.classList.remove('disabled')
