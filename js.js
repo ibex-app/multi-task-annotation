@@ -51,13 +51,17 @@ const highlightMenuLabel = () => {
     let activatedTagIndexes = []
     tags.forEach((tagInfo, tagIndex) => {
         if(tagInfo.words.join('') == selectedIndexes.join('')){
+            // console.log(tags.relation, tags.relation == 'start', tagInfo)
+            if(tagInfo.labelGroup == 'relation' && tagIndex == tags.length - 1 && tagInfo.relation == 'start') return
             activatedTagIndexes.push(tagIndex)
             activatedTags.push(tagInfo)
         }
     })
+
     document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled'))
     
     activatedTags.forEach(activatedTag => {
+        
         document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled')
     })
 }
@@ -375,10 +379,26 @@ var saveTag = (label) => {
             dublicateTag = tagInfo
         }
     })
+
     if (dublicateTag){
         tags.splice(dublicateTagIndex, 1);
         colIndex = colIndex - 1 > 0 ? colIndex - 1 : cols.length - 1
         
+        if(dublicateTag.labelGroup == 'relation'){
+            let relationPair
+            tags.forEach((t, i) => {
+                console.log(dublicateTag, i, ( dublicateTag.relation == 'end' ? dublicateTagIndex - 1 : dublicateTagIndex))
+                if (t.labelGroup == 'relation' && 
+                    t.relation == (dublicateTag.relation == 'start' ? 'end' : 'start') &&
+                    i == ( dublicateTag.relation == 'end' ? dublicateTagIndex - 1 : dublicateTagIndex)){
+                        relationPair = i
+                }
+            })
+            if(typeof(relationPair) == 'number'){
+                tags.splice(relationPair, 1);
+            }
+        }
+
         if(active_menu == 'relation'){
             if(!tags.length){
                 setMenu('relation')
@@ -393,7 +413,7 @@ var saveTag = (label) => {
         colIndex = colIndex + 1 < cols.length ? colIndex+1 : 1  
         let ralation_ = null
         if(active_menu == 'relation'){
-            if(!tags.length ||  tags[tags.length - 1].relation !== 'start'){
+            if(!tags.length || tags[tags.length - 1].relation !== 'start'){
                 ralation_ = 'start'
                 setMenu('relation', label)
 
@@ -404,7 +424,7 @@ var saveTag = (label) => {
             }
         }
 
-        tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes, relation: ralation_, labelGrup: active_menu }) 
+        tags.push({ id: tagId, label: label, colorIndex: colIndex, words: selectedIndexes, relation: ralation_, labelGroup: active_menu }) 
     }
 
     tags.forEach(tag => tag.drown = false)
@@ -809,10 +829,10 @@ const undo  = () => {
     if(tags && tags.length){
         let lastTag = tags[tags.length - 1]
         colIndex =  lastTag.colorIndex
-        if(lastTag.labelGrup == 'relation' && lastTag.relation == 'end'){
+        if(lastTag.labelGroup == 'relation' && lastTag.relation == 'end'){
             setMenu('relation', lastTag.label)
         } else {
-            setMenu(lastTag.labelGrup)
+            setMenu(lastTag.labelGroup)
         }
         tags.pop()
         orderTagsAndDrowUnderlines()
