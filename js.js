@@ -283,7 +283,7 @@ var orderTagsAndDrowUnderlines = () => {
             let colorForTag = getTagColor(tag)
             span = wordInfo.dom.querySelector('span:nth-child(' + (avaliableLayer + 1) + ')')
             span.style.borderBottom = '3px solid ' + colorForTag
-            // span.style.background = colorForTag
+            span.style.background = colorForTag
             
             if (wordInd == 0) {
                 if(tag.relation == 'start'){
