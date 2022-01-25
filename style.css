@@ -87,8 +87,8 @@ background: #888;
     display: block;
     /* min-height: 10px; */
     height: 0px;
-    margin-bottom: 9px;
-    /* margin-top: 10px; */
+    margin-bottom: 4px;
+    margin-top: 4px;
     border-bottom: 3px solid transparent;
     position: relative;
     /* text-overflow: ellipsis;
@@ -104,13 +104,14 @@ background: #888;
 
 .word span:first-child {
     height: auto;
-    margin-bottom: 5px;
+    margin-bottom: 0;
     border: none;
     /* padding-left: 4px; */
     padding-bottom: 1px;
     padding-left: 3.5px;
     padding-right: 3.5px;
-    line-height: 13pt;
+    line-height: 17pt;
+    margin-top: 0;
 }
 
 .word span:nth-child(2){
@@ -280,9 +281,9 @@ background: #888;
 }
 
 .word.selected span:first-child {
-    background: rgb(123, 197, 151) none repeat scroll 0% 0%;
+    background: rgba(52, 185, 103, 0.49) none repeat scroll 0% 0%;
     border: none;
-    box-shadow: 0 0 0px 4px rgb(123, 197, 151);
+    /* box-shadow: 0 0 0px 4px rgb(123, 197, 151); */
     color: white;
     text-shadow: none;
     transition: all .1s;
@@ -409,6 +410,7 @@ button {
     position: absolute;
     top: 0;
     /* background: #7bc597; */
+    color: #595959;
 }
 * {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -491,4 +493,7 @@ canvas{
 
 .abcRioButton.abcRioButtonLightBlue     .abcRioButtonContentWrapper{
     width: auto;
+}
+.word.selected {
+    background: #d2c8c54a;
 }

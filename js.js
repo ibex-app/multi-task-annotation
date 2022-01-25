@@ -59,7 +59,7 @@ const highlightMenuLabel = () => {
     })
 
     document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled'))
-    console.log(activatedTags)
+    // console.log(activatedTags)
     activatedTags.forEach(activatedTag => {
         console.log(document.querySelector(`span[data-id="${activatedTag.label}"]`))
         document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled')
@@ -132,7 +132,9 @@ var onmouseenter_ = (e, currentTarget) => {
     }
     if (!startSelection) return
     currentTarget = currentTarget || e.currentTarget
-    endIndex = parseInt(currentTarget.getAttribute('index'))
+    endIndex = parseInt(currentTarget.getAttribute('index')) || parseInt(currentTarget.parentElement.getAttribute('index'))
+    // console.log(currentTarget, endIndex)
+
     // let targetIndex = parseInt(currentTarget.getAttribute('index'))
     // let theWord = words.find(wordInfo => wordInfo.index == targetIndex)
     // let nextWord = words.find(wordInfo => wordInfo.index == targetIndex + 1)
