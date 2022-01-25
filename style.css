@@ -490,6 +490,7 @@ left: auto;
 
 .abcRioButton.abcRioButtonLightBlue{
     width: auto !important;
+    height: auto !important;
 }
 
 .abcRioButton.abcRioButtonLightBlue     .abcRioButtonContentWrapper{
@@ -525,4 +526,8 @@ padding: 8px 3px 8px 8px;
     width: var(--unit-size);
 display: inline-flex;
 justify-content: center;
+}
+
+.abcRioButtonIcon{
+    padding: 0 !important;
 }
