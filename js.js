@@ -855,3 +855,8 @@ function onSignIn(googleUser) {
 window.addEventListener('resize', orderTagsAndDrowUnderlines);
 
 setMenu('nothing-selected')
+
+const topMenu = document.querySelector('.top-menu')
+const toggleTopMenu = () => {
+    topMenu.classList.toggle('hide')
+}

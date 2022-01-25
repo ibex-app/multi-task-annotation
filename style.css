@@ -466,7 +466,8 @@ canvas{
 }
 
 .header > span.auth{
-    right: calc(var(--unit-size) + 1px);
+    right: 0;
+left: auto;
 }
 
 .disabled{
@@ -474,7 +475,7 @@ canvas{
 }
 .g-signin2{
     /* margin-right: calc(var(--unit-size) + 5px); */
-    position: absolute;
+    /* position: absolute; */
     right: 6px;
     top: 4px;
 }
@@ -496,4 +497,32 @@ canvas{
 }
 .word.selected {
     background: #d2c8c54a;
+}
+
+.top-menu{
+    position: absolute;
+right: 0;
+top: var(--unit-size);
+background: white;
+z-index: 5;
+border-left: 1px solid #c6bfba94;
+border-bottom: 1px solid #c6bfba94;
+}
+
+.top-menu.hide{
+    display: none;
+}
+
+.top-menu > div {
+    display: flex;
+justify-content: space-between;
+align-items: center;
+width: 163px;
+padding: 8px 3px 8px 8px;
+}
+
+.top-menu > div i, .top-menu > div > div{
+    width: var(--unit-size);
+display: inline-flex;
+justify-content: center;
 }
