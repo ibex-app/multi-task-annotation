@@ -470,9 +470,12 @@ canvas{
 left: auto;
 }
 
-.disabled{
+.disabled-red{
     background: #e96161 !important;
     color: #fff;
+}
+.disabled{
+    opacity: .3;
 }
 .g-signin2{
     /* margin-right: calc(var(--unit-size) + 5px); */

@@ -58,11 +58,11 @@ const highlightMenuLabel = () => {
         }
     })
 
-    document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled'))
+    document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled-red'))
     // console.log(activatedTags)
     activatedTags.forEach(activatedTag => {
         console.log(document.querySelector(`span[data-id="${activatedTag.label}"]`))
-        document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled')
+        document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled-red')
         // debugger
     })
 }
