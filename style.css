@@ -471,7 +471,8 @@ left: auto;
 }
 
 .disabled{
-    opacity: .3;
+    background: #e96161 !important;
+    color: #fff;
 }
 .g-signin2{
     /* margin-right: calc(var(--unit-size) + 5px); */

@@ -112,6 +112,7 @@ var onmousedown_ = (e) => {
     highlight()
     // e.preventDefault()
 }
+
 var ontouchmove_ = (e) => {
     if (e.touches && e.touches.length === 2) {s
         dehighlight_();
@@ -149,6 +150,7 @@ var onmouseup_ = (e) => {
     startSelection = false
     // e.preventDefault()
 }
+
 var parrentCont = document.querySelector('div.sent')
 var cont = document.querySelector('div.sent .scrolling')
 
@@ -196,14 +198,16 @@ cont.ontouchmove = (event) => {
     }
 }
 
-const display_sent = (text) => {
-    startSelection = false
+let text_to_annotate_
 
+const display_sent = (text_to_annotate) => {
+    startSelection = false
+    text_to_annotate_ = text_to_annotate
     
     let ndoesToRemove = [...cont.childNodes].filter(el => el.tagName !== 'CANVAS')
     ndoesToRemove.forEach(el => el.remove())
-
-    words = text.split(' ').map(a => a.trim()).map(t => ({ text: t }))
+    console.log(text_to_annotate)
+    words = text_to_annotate.words.map(t => ({ text: t }))
 
 
     words.forEach((wordInfo, wordIndex) => {
@@ -238,6 +242,7 @@ const display_sent = (text) => {
 
     tags = []
     tagId = tags.length
+    highlightMenuLabel()
 }
 let relations = []
 
@@ -345,29 +350,42 @@ var hideemptylines = () => {
     })
 }
 
-const saveAndNext = async () => {
-    if (cur_sent + 1 >= sentences.length) return
-    active_menu = 'nothing-selected'
-    cur_sent++
-    display_sent(sentences[cur_sent].text)
-    //TEMP:
-    // let tx = document.querySelectorAll('.header span')[1].innerText.split('-')[1]
-    // document.querySelectorAll('.header span')[1].innerText = tx + 1
 
-
-    // let tagsPostData = { tags: tags.map(tag => ({ words: tag.words, label: tag.label })) }
-    // var data = new FormData();
-    // data.append( "json", JSON.stringify( tagsPostData ) );
-
-    // fetch(API + 'save_and_next',
-    //     {
-    //         method: "POST",
-    //         body: data
-    //     })
-    //     .then(res => res.json())
-    //     .then(display_sent)
+const saveAndNext = async () => {7
+    let annotation_request = {}
+    if(text_to_annotate_){
+        annotation_request.text_id = text_to_annotate_._id
+        annotation_request.annotations = tags.map(tag => ({
+            tag_id: tag.id,
+            label: tag.label,
+            words: tag.words,
+            relation: tag.relation,
+            labelGrup: tag.labelGroup
+        }))
+    }
+    
+    const token = window.localStorage.getItem('jwt')
+    fetch('https://tag.ibex-app.com/api/save_and_next',
+        {
+            method: 'post',
+            headers: new Headers(token ? {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            } : { 'Content-Type': 'application/json' }),
+            body: JSON.stringify(annotation_request),
+        }).then((res) => {
+            if (res.status === 401) {
+                window.localStorage.removeItem('jwt')
+                document.getElementById('auth').innerHTML = 'Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">'
+            }
+            return res.json()
+        })
+        .then(display_sent)
 
 }
+
+
+
 
 var saveTag = (label) => {
     selectedIndexes = words.filter(wordInfo => wordInfo.selecting).map(wordInfo => wordInfo.index)
@@ -698,10 +716,10 @@ const labels = [
 
 // })
 
-var cur_sent = 0
-display_sent(sentences[cur_sent].text)
+// var cur_sent = 0
+// display_sent(sentences[cur_sent].text)
 
-const API = 'https://api.ibex-app.io/'
+// const API = 'https://api.ibex-app.io/'
 
 
 const bottomLine = document.querySelector('div.bottom-line')
@@ -842,15 +860,27 @@ const undo  = () => {
     }
 }
 
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-  
+const get_token_from_url = async () => {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    
+    if(params && params.access_token){
+        window.localStorage.setItem('jwt', params.access_token);
+        document.location.href = 'https://tag.ibex-app.com'
+    }
 
+    if(!window.localStorage.getItem('jwt')){
+        console.log('please log in...')
+        return
+    }
+    
+    document.getElementById('auth').innerHTML = 'Logout'
+    saveAndNext().then(console.log)
+}
+
+get_token_from_url()
+    .then(console.log)
 
 window.addEventListener('resize', orderTagsAndDrowUnderlines);
 
@@ -860,3 +890,24 @@ const topMenu = document.querySelector('.top-menu')
 const toggleTopMenu = () => {
     topMenu.classList.toggle('hide')
 }
+
+
+if (window.orientation === undefined) {
+    document.body.classList.add("not-mobile");
+    alert('Please open the webpage from mobile phone')
+}
+const logout = () => {
+    window.localStorage.removeItem('jwt')
+    document.getElementById('auth').innerHTML = 'Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">'
+    display_sent({words:[]})
+}
+
+document.getElementById('auth').onclick = () => {
+    const token = window.localStorage.getItem('jwt')
+    if(!token){
+        document.location.href = 'https://tag.ibex-app.com/api/login'
+    } else {
+        logout()
+    }
+}
+
