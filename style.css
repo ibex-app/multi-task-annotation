@@ -502,32 +502,39 @@ left: auto;
 
 .top-menu{
     position: absolute;
-right: 0;
-top: var(--unit-size);
-background: white;
-z-index: 5;
-border-left: 1px solid #c6bfba94;
-border-bottom: 1px solid #c6bfba94;
+    right: 0;
+    top: var(--unit-size);
+    background: white;
+    z-index: 15;
+    border-left: 1px solid #c6bfba94;
+    border-bottom: 1px solid #c6bfba94;
 }
 
 .top-menu.hide{
     display: none;
 }
 
-.top-menu > div {
+.top-menu > div, .top-menu > a {
     display: flex;
-justify-content: space-between;
-align-items: center;
-width: 163px;
-padding: 8px 3px 8px 8px;
+    justify-content: space-between;
+    align-items: center;
+    width: 163px;
+    padding: 8px 3px 8px 8px;
+    text-decoration: none;
+    color: #232324;
 }
 
-.top-menu > div i, .top-menu > div > div{
+
+
+.top-menu > div i, .top-menu > a > img{
     width: var(--unit-size);
-display: inline-flex;
-justify-content: center;
+    display: inline-flex;
+    justify-content: center;
 }
-
+.top-menu > a > img{
+width: 18px;
+margin-right: 14px;
+}
 .abcRioButtonIcon{
     padding: 0 !important;
 }
