@@ -1,8 +1,18 @@
 var colIndex = 1
 var cols = ["black", "#bf501f", "#f59c34", "#89a7c6", "#7bc597", "#8d639a", "#8d639a", "#e4a774", "#828687", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick"]
 
+var colsObj = {
+    'topic': "#f59c34",
+    'hate-speech': "#bf501f", 
+    'named-entity': "#89a7c6",
+    'sentiment': "#7bc597",
+    'relation': "#8d639a"
+}
 const getTagColor = tag => {
-    return cols[tag.colorIndex]
+    // console.log(tag)
+    
+    // return cols[tag.colorIndex]
+    return colsObj[tag.labelGroup]
 }
 
 
@@ -58,11 +68,13 @@ const highlightMenuLabel = () => {
         }
     })
 
-    document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled-red'))
+    // document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.classList.remove('disabled-red'))
+    document.querySelectorAll('.bottom-line > div > span').forEach(menuLabelDom => menuLabelDom.style.background = '')
     // console.log(activatedTags)
     activatedTags.forEach(activatedTag => {
-        console.log(document.querySelector(`span[data-id="${activatedTag.label}"]`))
-        document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled-red')
+        // console.log(document.querySelector(`span[data-id="${activatedTag.label}"]`))
+        // document.querySelector(`span[data-id="${activatedTag.label}"]`).classList.add('disabled-red')
+        document.querySelector(`span[data-id="${activatedTag.label}"]`).style.background = colsObj[activatedTag.labelGroup]
         // debugger
     })
 }
@@ -206,7 +218,7 @@ const display_sent = (text_to_annotate) => {
     
     let ndoesToRemove = [...cont.childNodes].filter(el => el.tagName !== 'CANVAS')
     ndoesToRemove.forEach(el => el.remove())
-    console.log(text_to_annotate)
+    // console.log(text_to_annotate)
     words = text_to_annotate.words.map(t => ({ text: t }))
 
 
@@ -243,6 +255,8 @@ const display_sent = (text_to_annotate) => {
     tags = []
     tagId = tags.length
     highlightMenuLabel()
+    // test here
+    orderTagsAndDrowUnderlines()
 }
 let relations = []
 
@@ -406,7 +420,7 @@ var saveTag = (label) => {
         if(dublicateTag.labelGroup == 'relation'){
             let relationPair
             tags.forEach((t, i) => {
-                console.log(dublicateTag, i, ( dublicateTag.relation == 'end' ? dublicateTagIndex - 1 : dublicateTagIndex))
+                // console.log(dublicateTag, i, ( dublicateTag.relation == 'end' ? dublicateTagIndex - 1 : dublicateTagIndex))
                 if (t.labelGroup == 'relation' && 
                     t.relation == (dublicateTag.relation == 'start' ? 'end' : 'start') &&
                     i == ( dublicateTag.relation == 'end' ? dublicateTagIndex - 1 : dublicateTagIndex)){
@@ -482,7 +496,7 @@ const disableNextAndPrev = () => {
     
         nextBtn.removeEventListener("click", next)
         nextBtn.classList.add('disabled')
-        console.log('removing')
+        // console.log('removing')
         return
     }
     if (curentMenuIndex + 1 >= labels.length){
@@ -598,41 +612,47 @@ const labels = [
         values: [
             { id: 1, text: "Anti west" , value: "Anti west" },
             { id: 2, text: "Pro-kremlian" , value: "Pro-kremlian" },
-            { id: 3, text: "Hate speech" , value: "Hate speech" },
-            { id: 1, text: "Border" , value: "Border" },
-            { id: 2, text: "Prisoners" , value: "Prisoners" },
-            { id: 3, text: "Military" , value: "Military" },
+            // { id: 3, text: "Hate speech" , value: "Hate speech" },
+            // { id: 1, text: "Border" , value: "Border" },
+            // { id: 2, text: "Prisoners" , value: "Prisoners" },
+            // { id: 3, text: "Military" , value: "Military" },
             { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
             { id: 3, text: "Terorism" , value: "Terorism" },
             { id: 3, text: "Gender" , value: "Gender" },
+        ]
+    },{
+        name: 'hate-speech',
+        values: [
+            { id: 3, text: "Hate speech" , value: "Hate speech" },
+            { id: 10, text: "Hate speech target" , value: "Target" }
         ]
     },
     {
         name: 'named-entity',
         values: [
         // { id: 6, text: "CARDINAL" , value: "CARDINAL" },
-            { id: 6, text: "Date" , value: "Date" },
+        { id: 6, text: "Person" , value: "Person" },
+        { id: 6, text: "Organization" , value: "Org" },
+        { id: 6, text: "Location" , value: "Loc" },
+        { id: 10, text: "Author" , value: "Author" },
             { id: 6, text: "Event" , value: "Event" },
-            { id: 6, text: "Fac" , value: "Fac" },
-            { id: 6, text: "Gpe" , value: "Gpe" },
-            { id: 6, text: "Language" , value: "Language" },
-            { id: 6, text: "Law" , value: "Law" },
-            { id: 6, text: "Loc" , value: "Loc" },
-            { id: 6, text: "money" , value: "money" },
+            { id: 6, text: "Date" , value: "Date" },
+            { id: 6, text: "Time" , value: "Time" },
+            { id: 6, text: "Facility" , value: "Fac" },
+            // { id: 6, text: "Quantity" , value: "Quantity" },
+            // { id: 6, text: "Gpe" , value: "Gpe" },
+            // { id: 6, text: "Language" , value: "Language" },
+            // { id: 6, text: "Law" , value: "Law" },
+            // { id: 6, text: "money" , value: "money" },
             // { id: 6, text: "NORP" , value: "NORP" },
             // { id: 6, text: "ORDINAL" , value: "ORDINAL" },
-            { id: 6, text: "Org" , value: "Org" },
             // { id: 6, text: "PERCENT" , value: "PERCENT" },
-            { id: 6, text: "Person" , value: "Person" },
-            { id: 6, text: "Product" , value: "Product" },
-            { id: 6, text: "Quantity" , value: "Quantity" },
-            { id: 6, text: "Time" , value: "Time" },
+            // { id: 6, text: "Product" , value: "Product" },
 // { id: 6, text: "WORK_OF_ART" , value: "WORK_OF_ART" },
             // { id: 6, text: "Person" , value: "Person" },
             // { id: 7, text: "Organization" , value: "Organization" },
             // { id: 8, text: "Event" , value: "Event" },
             // { id: 9, text: "Location" , value: "Location" },
-            { id: 10, text: "Target" , value: "Target" },
             // { id: 6, text: "Person" , value: "Person" },
             // { id: 7, text: "Organization" , value: "Organization" },
             // { id: 8, text: "Event" , value: "Event" },
@@ -657,24 +677,24 @@ const labels = [
     }, {
         name: 'relation',
         values: [
-            // { id: 1, text: "Cause-Effect" , value: "Cause-Effect" },
-            // { id: 1, text: "Component-Whole" , value: "Component-Whole" },
-            // { id: 1, text: "Content-Container" , value: "Content-Container" },
-            // { id: 1, text: "Entity-Destination" , value: "Entity-Destination" },
-            // { id: 1, text: "Entity-Origin" , value: "Entity-Origin" },
-            // { id: 1, text: "Instrument-Agency" , value: "Instrument-Agency" },
-            // { id: 1, text: "Member-Collection" , value: "Member-Collection" },
-            // { id: 1, text: "Message-Topic" , value: "Message-Topic" },
-            // { id: 1, text: "Product-Producer", value: "Product-Producer" }
-            { id: 1, text: "Cause" , value: "Cause" },
-            { id: 1, text: "Component" , value: "Component" },
-            { id: 1, text: "Content" , value: "Content" },
-            { id: 1, text: "Destination" , value: "Destination" },
-            { id: 1, text: "Origin" , value: "Origin" },
-            { id: 1, text: "Agency" , value: "Agency" },
-            { id: 1, text: "Member" , value: "Member" },
-            { id: 1, text: "Message" , value: "Message" },
-            { id: 1, text: "Producer", value: "Producer" }
+            { id: 1, text: "Cause-Effect" , value: "Cause-Effect" },
+            { id: 1, text: "Component-Whole" , value: "Component-Whole" },
+            { id: 1, text: "Content-Container" , value: "Content-Container" },
+            { id: 1, text: "Entity-Destination" , value: "Entity-Destination" },
+            { id: 1, text: "Entity-Origin" , value: "Entity-Origin" },
+            { id: 1, text: "Instrument-Agency" , value: "Instrument-Agency" },
+            { id: 1, text: "Member-Collection" , value: "Member-Collection" },
+            { id: 1, text: "Message-Topic" , value: "Message-Topic" },
+            { id: 1, text: "Product-Producer", value: "Product-Producer" }
+            // { id: 1, text: "Cause" , value: "Cause" },
+            // { id: 1, text: "Component" , value: "Component" },
+            // { id: 1, text: "Content" , value: "Content" },
+            // { id: 1, text: "Destination" , value: "Destination" },
+            // { id: 1, text: "Origin" , value: "Origin" },
+            // { id: 1, text: "Agency" , value: "Agency" },
+            // { id: 1, text: "Member" , value: "Member" },
+            // { id: 1, text: "Message" , value: "Message" },
+            // { id: 1, text: "Producer", value: "Producer" }
         ]
     },
 
@@ -859,6 +879,12 @@ const undo  = () => {
         drawRelations()
     }
 }
+const checkmobile = () => {
+    if (window.orientation === undefined) {
+        document.body.classList.add("not-mobile");
+        alert('Please open the webpage from mobile phone')
+    }
+}
 
 const get_token_from_url = async () => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -872,15 +898,16 @@ const get_token_from_url = async () => {
 
     if(!window.localStorage.getItem('jwt')){
         console.log('please log in...')
+        document.getElementById('pop').style.display = 'block'
         return
     }
-    
-    document.getElementById('auth').innerHTML = 'Logout'
-    saveAndNext().then(console.log)
+    document.getElementById('auth').innerHTML = 'Logout <i class="fa-solid fa-arrow-right-to-bracket"></i>'
+    checkmobile()
+    saveAndNext().then(() => 0)
 }
 
 get_token_from_url()
-    .then(console.log)
+    .then(() => 0)
 
 window.addEventListener('resize', orderTagsAndDrowUnderlines);
 
@@ -891,15 +918,12 @@ const toggleTopMenu = () => {
     topMenu.classList.toggle('hide')
 }
 
-
-if (window.orientation === undefined) {
-    document.body.classList.add("not-mobile");
-    alert('Please open the webpage from mobile phone')
-}
 const logout = () => {
     window.localStorage.removeItem('jwt')
     document.getElementById('auth').innerHTML = 'Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">'
     display_sent({words:[]})
+    document.getElementById('pop').innerHTML = '<span>Please log in to start annotation</span><a class="" href="https://tag.ibex-app.com/api/login">Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"></a>'
+    document.getElementById('pop').style.display = 'block'
 }
 
 document.getElementById('auth').onclick = () => {
