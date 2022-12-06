@@ -893,7 +893,7 @@ const get_token_from_url = async () => {
     
     if(params && params.access_token){
         window.localStorage.setItem('jwt', params.access_token);
-        document.location.href = 'https://tag.ibex-app.com'
+        document.location.href = 'https://dev.ibex-app.com'
     }
 
     if(!window.localStorage.getItem('jwt')){
@@ -922,14 +922,14 @@ const logout = () => {
     window.localStorage.removeItem('jwt')
     document.getElementById('auth').innerHTML = 'Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">'
     display_sent({words:[]})
-    document.getElementById('pop').innerHTML = '<span>Please log in to start annotation</span><a class="" href="https://tag.ibex-app.com/api/login">Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"></a>'
+    document.getElementById('pop').innerHTML = '<span>Please log in to start annotation</span><a class="" href="https://dev.ibex-app.com/api/login">Login<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"></a>'
     document.getElementById('pop').style.display = 'block'
 }
 
 document.getElementById('auth').onclick = () => {
     const token = window.localStorage.getItem('jwt')
     if(!token){
-        document.location.href = 'https://tag.ibex-app.com/api/login'
+        document.location.href = 'https://dev.ibex-app.com/api/login'
     } else {
         logout()
     }
