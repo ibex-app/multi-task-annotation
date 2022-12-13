@@ -626,9 +626,9 @@ const labels = [
         values: [
             { id: 1, text: "Religion" , value: "Religion" },
             { id: 2, text: "Ethnicity" , value: "Ethnicity" },
-            { id: 2, text: "Homophoby" , value: "Homophoby" },
-            { id: 2, text: "Nationality" , value: "Nationality" },
-            { id: 2, text: "Gender" , value: "Gender" }
+            { id: 3, text: "Nationality" , value: "Nationality" },
+            { id: 4, text: "Homophoby" , value: "Homophoby" },
+            { id: 5, text: "Gender" , value: "Gender" }
         ]
     },
     {
