@@ -50,7 +50,7 @@ var highlight = () => {
     if (active_menu == 'relation') return
     if (selected.length == 0) setMenu('nothing-selected')
     if (selected.length > 0 & selected.length < 3) setMenu('named-entity')
-    if (selected.length > 3) setMenu('topic')
+    if (selected.length > 3) setMenu('hate-speech')
     // draw();
 }
 
@@ -632,7 +632,7 @@ const labels = [
         ]
     },
     {
-        name: 'entity',
+        name: 'named-entity',
         values: [
         // { id: 6, text: "CARDINAL" , value: "CARDINAL" },
         { id: 1, text: "Target" , value: "Target" },
