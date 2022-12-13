@@ -607,38 +607,42 @@ const labels = [
             { id: 1, text: "Select all" , value: "Select all" },
         ]
     },
+    // {
+    //     name: 'topic',
+    //     values: [
+    //         { id: 1, text: "Anti west" , value: "Anti west" },
+    //         { id: 2, text: "Pro-kremlian" , value: "Pro-kremlian" },
+    //         // { id: 3, text: "Hate speech" , value: "Hate speech" },
+    //         // { id: 1, text: "Border" , value: "Border" },
+    //         // { id: 2, text: "Prisoners" , value: "Prisoners" },
+    //         // { id: 3, text: "Military" , value: "Military" },
+    //         { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
+    //         { id: 3, text: "Terorism" , value: "Terorism" },
+    //         { id: 3, text: "Gender" , value: "Gender" },
+    //     ]
+    // },
     {
-        name: 'topic',
-        values: [
-            { id: 1, text: "Anti west" , value: "Anti west" },
-            { id: 2, text: "Pro-kremlian" , value: "Pro-kremlian" },
-            // { id: 3, text: "Hate speech" , value: "Hate speech" },
-            // { id: 1, text: "Border" , value: "Border" },
-            // { id: 2, text: "Prisoners" , value: "Prisoners" },
-            // { id: 3, text: "Military" , value: "Military" },
-            { id: 3, text: "Anti LGBTQ" , value: "Anti LGBTQ" },
-            { id: 3, text: "Terorism" , value: "Terorism" },
-            { id: 3, text: "Gender" , value: "Gender" },
-        ]
-    },{
         name: 'hate-speech',
         values: [
-            { id: 3, text: "Hate speech" , value: "Hate speech" },
-            { id: 10, text: "Hate speech target" , value: "Target" }
+            { id: 1, text: "Religion" , value: "Religion" },
+            { id: 2, text: "Ethnicity" , value: "Ethnicity" },
+            { id: 2, text: "Homophoby" , value: "Homophoby" },
+            { id: 2, text: "Nationality" , value: "Nationality" },
+            { id: 2, text: "Gender" , value: "Gender" }
         ]
     },
     {
-        name: 'named-entity',
+        name: 'entity',
         values: [
         // { id: 6, text: "CARDINAL" , value: "CARDINAL" },
-        { id: 6, text: "Person" , value: "Person" },
-        { id: 6, text: "Organization" , value: "Org" },
-        { id: 6, text: "Location" , value: "Loc" },
-        { id: 10, text: "Author" , value: "Author" },
-            { id: 6, text: "Event" , value: "Event" },
-            { id: 6, text: "Date" , value: "Date" },
-            { id: 6, text: "Time" , value: "Time" },
-            { id: 6, text: "Facility" , value: "Fac" },
+        { id: 1, text: "Target" , value: "Target" },
+        { id: 2, text: "Author" , value: "Author" },
+        // { id: 6, text: "Location" , value: "Loc" },
+        // { id: 10, text: "Author" , value: "Author" },
+        // { id: 6, text: "Event" , value: "Event" },
+        // { id: 6, text: "Date" , value: "Date" },
+        // { id: 6, text: "Time" , value: "Time" },
+        // { id: 6, text: "Facility" , value: "Fac" },
             // { id: 6, text: "Quantity" , value: "Quantity" },
             // { id: 6, text: "Gpe" , value: "Gpe" },
             // { id: 6, text: "Language" , value: "Language" },
@@ -660,43 +664,43 @@ const labels = [
             // { id: 10, text: "Hate speech target" , value: "Hate speech target" },
         ]
     },
-    {
-        name: 'sentiment',
-        values: [
-            // { id: 1, text: "Negative" , value: "Negative" },
-            // { id: 2, text: "Mostly negative" , value: "Mostly negative" },
-            // { id: 3, text: "Neutral" , value: "Neutral" },
-            // { id: 2, text: "Mostly positive" , value: "Mostly positive" },
-            // { id: 3, text: "Positive" , value: "Positive" },
-            { id: 1, text: '<i class="far fa-angry"></i>' , value: 'Negative' },
-            { id: 2, text: '<i class="far fa-frown"></i>' , value: 'Mostly negative' },
-            { id: 3, text: '<i class="far fa-meh-blank"></i>' , value: 'Neutral' },
-            { id: 2, text: '<i class="far fa-smile"></i>' , value: 'Mostly positive' },
-            { id: 3, text: '<i class="far fa-grin-hearts"></i>' , value: 'Positive' },
-        ]
-    }, {
-        name: 'relation',
-        values: [
-            { id: 1, text: "Cause-Effect" , value: "Cause-Effect" },
-            { id: 1, text: "Component-Whole" , value: "Component-Whole" },
-            { id: 1, text: "Content-Container" , value: "Content-Container" },
-            { id: 1, text: "Entity-Destination" , value: "Entity-Destination" },
-            { id: 1, text: "Entity-Origin" , value: "Entity-Origin" },
-            { id: 1, text: "Instrument-Agency" , value: "Instrument-Agency" },
-            { id: 1, text: "Member-Collection" , value: "Member-Collection" },
-            { id: 1, text: "Message-Topic" , value: "Message-Topic" },
-            { id: 1, text: "Product-Producer", value: "Product-Producer" }
-            // { id: 1, text: "Cause" , value: "Cause" },
-            // { id: 1, text: "Component" , value: "Component" },
-            // { id: 1, text: "Content" , value: "Content" },
-            // { id: 1, text: "Destination" , value: "Destination" },
-            // { id: 1, text: "Origin" , value: "Origin" },
-            // { id: 1, text: "Agency" , value: "Agency" },
-            // { id: 1, text: "Member" , value: "Member" },
-            // { id: 1, text: "Message" , value: "Message" },
-            // { id: 1, text: "Producer", value: "Producer" }
-        ]
-    },
+    // {
+    //     name: 'sentiment',
+    //     values: [
+    //         // { id: 1, text: "Negative" , value: "Negative" },
+    //         // { id: 2, text: "Mostly negative" , value: "Mostly negative" },
+    //         // { id: 3, text: "Neutral" , value: "Neutral" },
+    //         // { id: 2, text: "Mostly positive" , value: "Mostly positive" },
+    //         // { id: 3, text: "Positive" , value: "Positive" },
+    //         { id: 1, text: '<i class="far fa-angry"></i>' , value: 'Negative' },
+    //         { id: 2, text: '<i class="far fa-frown"></i>' , value: 'Mostly negative' },
+    //         { id: 3, text: '<i class="far fa-meh-blank"></i>' , value: 'Neutral' },
+    //         { id: 2, text: '<i class="far fa-smile"></i>' , value: 'Mostly positive' },
+    //         { id: 3, text: '<i class="far fa-grin-hearts"></i>' , value: 'Positive' },
+    //     ]
+    // }, {
+    //     name: 'relation',
+    //     values: [
+    //         { id: 1, text: "Cause-Effect" , value: "Cause-Effect" },
+    //         { id: 1, text: "Component-Whole" , value: "Component-Whole" },
+    //         { id: 1, text: "Content-Container" , value: "Content-Container" },
+    //         { id: 1, text: "Entity-Destination" , value: "Entity-Destination" },
+    //         { id: 1, text: "Entity-Origin" , value: "Entity-Origin" },
+    //         { id: 1, text: "Instrument-Agency" , value: "Instrument-Agency" },
+    //         { id: 1, text: "Member-Collection" , value: "Member-Collection" },
+    //         { id: 1, text: "Message-Topic" , value: "Message-Topic" },
+    //         { id: 1, text: "Product-Producer", value: "Product-Producer" }
+    //         // { id: 1, text: "Cause" , value: "Cause" },
+    //         // { id: 1, text: "Component" , value: "Component" },
+    //         // { id: 1, text: "Content" , value: "Content" },
+    //         // { id: 1, text: "Destination" , value: "Destination" },
+    //         // { id: 1, text: "Origin" , value: "Origin" },
+    //         // { id: 1, text: "Agency" , value: "Agency" },
+    //         // { id: 1, text: "Member" , value: "Member" },
+    //         // { id: 1, text: "Message" , value: "Message" },
+    //         // { id: 1, text: "Producer", value: "Producer" }
+    //     ]
+    // },
 
 ]
 // CARDINAL 	cardinal value
