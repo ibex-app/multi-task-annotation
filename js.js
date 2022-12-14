@@ -624,12 +624,23 @@ const labels = [
     {
         name: 'hate-speech',
         values: [
-            { id: 1, text: "Religion" , value: "Religion" },
-            { id: 2, text: "Ethnicity" , value: "Ethnicity" },
-            { id: 3, text: "Nationality" , value: "Nationality" },
-            { id: 4, text: "Homophoby" , value: "Homophoby" },
-            { id: 5, text: "Gender" , value: "Gender" },
-            { id: 6, text: "Other" , value: "Other" }
+            { id: 1, text: "Threat", value: "Threat" },
+            { id: 2, text: "Sexual Explici", value: "SexualExplici" },
+            { id: 3, text: "Homophoby", value: "Homophoby" },
+            { id: 4, text: "Gender", value: "Gender" },
+            { id: 5, text: "Rusophoby", value: "Rusophoby" },
+            { id: 6, text: "Armenophoby", value: "Armenophoby" },
+            { id: 6, text: "Azerophoby", value: "Armenophoby" },
+            { id: 7, text: "Turkophoby", value: "Turkophoby" },
+            { id: 8, text: "Kartvelophoby", value: "Kartvelophoby" },
+            { id: 9, text: "Apkhasophoby", value: "Apkhasophoby" },
+            { id: 10, text: "Osophoby", value: "Osophoby" },
+            { id: 11, text: "Other Ethnisity", value: "OtherEthnisity" },
+            { id: 12, text: "Christian", value: "Christian" },
+            { id: 13, text: "Jewish", value: "Jewish" },
+            { id: 14, text: "Muslim", value: "Muslim" },
+            { id: 15, text: "Other Regilion", value: "OtherRegilion" }
+            { id: 16, text: "Other", value: "Other" }
         ]
     },
     {
