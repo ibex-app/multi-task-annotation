@@ -637,7 +637,7 @@ const labels = [
             { id: 10, text: "Azerophoby", value: "Armenophoby" },
             { id: 11, text: "Turkophoby", value: "Turkophoby" },
             { id: 12, text: "Kartvelophoby", value: "Kartvelophoby" },
-            { id: 12, text: "Apkhasophoby", value: "Apkhasophoby" },
+            { id: 12, text: "Abkhasophoby", value: "Abkhasophoby" },
             { id: 14, text: "Osophoby", value: "Osophoby" },
             { id: 15, text: "Other Ethnisity", value: "OtherEthnisity" },
             { id: 16, text: "Christian", value: "Christian" },
