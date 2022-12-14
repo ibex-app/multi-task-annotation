@@ -646,7 +646,8 @@ const labels = [
             { id: 20, text: "Jewish", value: "Jewish" },
             { id: 21, text: "Muslim", value: "Muslim" },
             { id: 22, text: "Other Regilion", value: "OtherRegilion" },
-            { id: 23, text: "Other", value: "Other" }
+            { id: 23, text: "Political View", value: "PoliticalView" },
+            { id: 24, text: "Other", value: "Other" }
         ]
     },
     {
