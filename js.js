@@ -622,32 +622,83 @@ const labels = [
     //     ]
     // },
     {
-        name: 'hate-speech',
+        name: 'აგვისტოს-ომის-მიზეზები-და-მისი-შედეგები',
         values: [
-            { id: 1, text: "Threat", value: "Threat" },
-            { id: 2, text: "Call to Violence", value: "CallToViolence" },
-            { id: 3, text: "Sexual Explicit", value: "SexualExplicit" },
-            { id: 4, text: "Swearing", value: "Swearing" },
-            { id: 5, text: "Homophoby", value: "Homophoby" },
-            { id: 6, text: "Gender", value: "Gender" },
-            { id: 7, text: "Race", value: "Race" },
-            { id: 8, text: "Psychiatric Illness", value: "PsychiatricIllness" },
-            { id: 9, text: "Mental Illness", value: "Mentalillness" },
-            { id: 10, text: "Other Illness", value: "Mentalillness" },
-            { id: 11, text: "Rusophoby", value: "Rusophoby" },
-            { id: 12, text: "Armenophoby", value: "Armenophoby" },
-            { id: 13, text: "Azerophoby", value: "Armenophoby" },
-            { id: 14, text: "Turkophoby", value: "Turkophoby" },
-            { id: 15, text: "Kartvelophoby", value: "Kartvelophoby" },
-            { id: 16, text: "Abkhasophoby", value: "Abkhasophoby" },
-            { id: 17, text: "Osophoby", value: "Osophoby" },
-            { id: 18, text: "Other Ethnisity", value: "OtherEthnisity" },
-            { id: 19, text: "Christian", value: "Christian" },
-            { id: 20, text: "Jewish", value: "Jewish" },
-            { id: 21, text: "Muslim", value: "Muslim" },
-            { id: 22, text: "Other Regilion", value: "OtherRegilion" },
-            { id: 23, text: "Political View", value: "PoliticalView" },
-            { id: 24, text: "Other", value: "Other" }
+            { id: 1, text: "საქართველოს დადანაშაულება", value: "GeorgianGuilt" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "რუსეთის დადანაშაულება", value: "RussianGuilt" },
+        ]
+    },
+    {
+        name: 'ომი-უკრაინაში',
+        values: [
+            { id: 1, text: "პრო-უკრაინული", value: "ProUkraine" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "პრო-რუსული", value: "ProRussian" },
+        ]
+    },
+    {
+        name: 'ომი-უკრაინაში-და-საქართველოს-როლი-კონფლიქტში',
+        values: [
+            { id: 1, text: "საჭიროა მეტი მხარდაჭერა", value: "MoreSupportNeeded" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "უკრაინული მხარის დისკრედიტაცია", value: "AntiUkraine" },
+        ]
+    },
+    {
+        name: 'მიხეილ-სააკაშვილის-პატიმრობა-და-საზღვარგარეთ-მკურნალობა',
+        values: [
+            { id: 1, text: "სააკაშვილის მხარდაჭერა", value: "ProSaakashvili" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "სააკაშვილის დისკედიტაცია", value: "AntiSaakashvili" },
+        ]
+    },
+    {
+        name: 'დაპირისპირება-ლიბერალურ-კონსერვატორულ-ღირებულებებს-შორის',
+        values: [
+            { id: 1, text: "კონსერვატორული პოზიცია", value: "Conservative" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "ლიბერალური პოზიცია", value: "Liberal" },
+        ]
+    },
+    {
+        name: 'პრო-დასავლური-და-ანტი-დასავლური-საგარეო-პოლიტიკური-კურსი',
+        values: [
+            { id: 1, text: "პრო-დასავლური", value: "ProWest" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "ანტი-დასავლური", value: "AntiWest" },
+        ]
+    },
+    {
+        name: 'პრო-რუსული-და-ანტი-რუსული-საგარეო-პოლიტიკური-კურსი',
+        values: [
+            { id: 1, text: "პრო-რუსული", value: "ProRussian" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "ანტი-რუსული", value: "AntiRussian" },
+        ]
+    },
+    {
+        name: 'არასამთავრობო-სექტორის-როლი-ქვეყნის-პოლიტიკურ-პროცესებში	',
+        values: [
+            { id: 1, text: "NGO სექტორის მხარდაჭერა", value: "ProNGO" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "NGO სექტორის დისკედიტაცია", value: "AntiNGO" },
+        ]
+    },
+    {
+        name: 'მედიის-დამოუკიდებლობა-და-მედიის-როლი-პოლიტიკურ-პროცესებში',
+        values: [
+            { id: 1, text: "მედიის მხარდაჭერა", value: "ProMedia" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "მედიის დისკედიტაცია", value: "AntiMedia" },
+        ]
+    },
+    {
+        name: 'რუსების-მიგრაცია-საქართველოში	',
+        values: [
+            { id: 1, text: "მიგრაციის ოპოზიცია", value: "AntiMigration" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "მიგრაციის მხარდაჭერა", value: "ProMigration" },
         ]
     },
     {
