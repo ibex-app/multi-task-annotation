@@ -627,7 +627,7 @@ const labels = [
         name: 'აგვისტოს-ომის-მიზეზები-და-მისი-შედეგები',
         values: [
             { id: 1, text: "საქართველოს დადანაშაულება", value: "GeorgianGuilt" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "რუსეთის დადანაშაულება", value: "RussianGuilt" },
         ]
     },
@@ -635,7 +635,7 @@ const labels = [
         name: 'ომი-უკრაინაში',
         values: [
             { id: 1, text: "პრო-უკრაინული", value: "ProUkraine" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "პრო-რუსული", value: "ProRussian" },
         ]
     },
@@ -643,7 +643,7 @@ const labels = [
         name: 'ომი-უკრაინაში-და-საქართველოს-როლი-კონფლიქტში',
         values: [
             { id: 1, text: "საჭიროა მეტი მხარდაჭერა", value: "MoreSupportNeeded" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "უკრაინული მხარის დისკრედიტაცია", value: "AntiUkraine" },
         ]
     },
@@ -651,7 +651,7 @@ const labels = [
         name: 'მიხეილ-სააკაშვილის-პატიმრობა-და-საზღვარგარეთ-მკურნალობა',
         values: [
             { id: 1, text: "სააკაშვილის მხარდაჭერა", value: "ProSaakashvili" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "სააკაშვილის დისკედიტაცია", value: "AntiSaakashvili" },
         ]
     },
@@ -659,7 +659,7 @@ const labels = [
         name: 'დაპირისპირება-ლიბერალურ-კონსერვატორულ-ღირებულებებს-შორის',
         values: [
             { id: 1, text: "კონსერვატორული პოზიცია", value: "Conservative" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "ლიბერალური პოზიცია", value: "Liberal" },
         ]
     },
@@ -667,7 +667,7 @@ const labels = [
         name: 'პრო-დასავლური-და-ანტი-დასავლური-საგარეო-პოლიტიკური-კურსი',
         values: [
             { id: 1, text: "პრო-დასავლური", value: "ProWest" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "ანტი-დასავლური", value: "AntiWest" },
         ]
     },
@@ -675,7 +675,7 @@ const labels = [
         name: 'პრო-რუსული-და-ანტი-რუსული-საგარეო-პოლიტიკური-კურსი',
         values: [
             { id: 1, text: "პრო-რუსული", value: "ProRussian" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "ანტი-რუსული", value: "AntiRussian" },
         ]
     },
@@ -683,7 +683,7 @@ const labels = [
         name: 'არასამთავრობო-სექტორის-როლი-ქვეყნის-პოლიტიკურ-პროცესებში	',
         values: [
             { id: 1, text: "NGO სექტორის მხარდაჭერა", value: "ProNGO" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "NGO სექტორის დისკედიტაცია", value: "AntiNGO" },
         ]
     },
@@ -691,7 +691,7 @@ const labels = [
         name: 'მედიის-დამოუკიდებლობა-და-მედიის-როლი-პოლიტიკურ-პროცესებში',
         values: [
             { id: 1, text: "მედიის მხარდაჭერა", value: "ProMedia" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "მედიის დისკედიტაცია", value: "AntiMedia" },
         ]
     },
@@ -699,7 +699,7 @@ const labels = [
         name: 'რუსების-მიგრაცია-საქართველოში	',
         values: [
             { id: 1, text: "მიგრაციის ოპოზიცია", value: "AntiMigration" },
-            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 2, text: "შუალედური", value: "Neutral" },
             { id: 3, text: "მიგრაციის მხარდაჭერა", value: "ProMigration" },
         ]
     },
