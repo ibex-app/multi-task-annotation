@@ -50,7 +50,9 @@ var highlight = () => {
     if (active_menu == 'relation') return
     if (selected.length == 0) setMenu('nothing-selected')
     if (selected.length > 0 & selected.length < 3) setMenu('named-entity')
-    if (selected.length > 3) setMenu('hate-speech')
+    // if (selected.length > 3) setMenu('hate-speech')
+    // if (selected.length > 3) setMenu('hate-speech')
+    if (selected.length > 3) setMenu('აგვისტოს-ომის-მიზეზები-და-მისი-შედეგები')
     // draw();
 }
 
