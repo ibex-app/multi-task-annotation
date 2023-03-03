@@ -215,7 +215,7 @@ cont.ontouchmove = (event) => {
 let text_to_annotate_
 
 const display_sent = (text_to_annotate) => {
-    document.getElementById('count').innerText = text_to_annotate.count + '/200'
+    document.getElementById('count').innerText = text_to_annotate.annotated_today + '/200'
     startSelection = false
     text_to_annotate_ = text_to_annotate
     
