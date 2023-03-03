@@ -624,3 +624,13 @@ body .save.undo{
     position: absolute;
     left: 15%;
 }
+
+#count{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .8em;
+    font-weight: bold;
+    z-index: 2;
+    color: #b7b7b7;
+}
