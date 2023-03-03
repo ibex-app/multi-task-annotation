@@ -705,6 +705,28 @@ const labels = [
         ]
     },
     {
+        name: 'დეოლიგარქიზაცია',
+        values: [
+            { id: 1, text: "ივანიშვლის მხარდაჭერა", value: "ProIvanishvili" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "ივანიშვლის დისკრედიტაცია", value: "ProMigration" },
+        ]
+    },{
+        name: 'დეპოლარიზაცია',
+        values: [
+            { id: 1, text: "ოპოზიციის დადანაშაულება", value: "OpositionGuilt" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "მმართველი ძალის დადანაშაულება", value: "GovGuilt" },
+        ]
+    },{
+        name: 'ეკონომიკური მდგომარეობა',
+        values: [
+            { id: 1, text: "ნეგატიური შეფასება", value: "Negative" },
+            { id: 2, text: "ნეიტრალური", value: "Neutral" },
+            { id: 3, text: "პოზიტიური შეფასება", value: "Positiv" },
+        ]
+    },
+    {
         name: 'named-entity',
         values: [
         // { id: 6, text: "CARDINAL" , value: "CARDINAL" },
