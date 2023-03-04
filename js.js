@@ -709,7 +709,7 @@ const labels = [
         values: [
             { id: 1, text: "ივანიშვლის მხარდაჭერა", value: "ProIvanishvili" },
             { id: 2, text: "ნეიტრალური", value: "Neutral" },
-            { id: 3, text: "ივანიშვლის დისკრედიტაცია", value: "ProMigration" },
+            { id: 3, text: "ივანიშვლის დისკრედიტაცია", value: "AntiIvanishvili" },
         ]
     },{
         name: 'დეპოლარიზაცია',
